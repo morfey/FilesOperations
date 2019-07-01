@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EE7383B822C7E0CC00DF9B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */; };
-		EE7383BA22C7E0CC00DF9B7F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383B922C7E0CC00DF9B7F /* ViewController.swift */; };
+		EE7383BA22C7E0CC00DF9B7F /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */; };
 		EE7383BC22C7E0CF00DF9B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE7383BB22C7E0CF00DF9B7F /* Assets.xcassets */; };
 		EE7383BF22C7E0CF00DF9B7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE7383BD22C7E0CF00DF9B7F /* Main.storyboard */; };
 		EE7383CB22C7E0CF00DF9B7F /* FilesOperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383CA22C7E0CF00DF9B7F /* FilesOperationsTests.swift */; };
@@ -22,6 +22,9 @@
 		EE73840E22CA525200DF9B7F /* FileServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73840D22CA525200DF9B7F /* FileServiceDelegate.swift */; };
 		EE73841022CA527F00DF9B7F /* FileServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73840F22CA527F00DF9B7F /* FileServiceProtocol.swift */; };
 		EE73841222CA7AC600DF9B7F /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73841122CA7AC600DF9B7F /* GlobalVariables.swift */; };
+		EE73841722CA8DB500DF9B7F /* FileListViewController + Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73841622CA8DB500DF9B7F /* FileListViewController + Column.swift */; };
+		EE73841A22CA8F9600DF9B7F /* BaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73841922CA8F9600DF9B7F /* BaseTableCell.swift */; };
+		EE73841C22CA8FCC00DF9B7F /* BaseTableCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73841B22CA8FCC00DF9B7F /* BaseTableCellVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +61,7 @@
 /* Begin PBXFileReference section */
 		EE7383B422C7E0CC00DF9B7F /* FilesOperations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilesOperations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EE7383B922C7E0CC00DF9B7F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
 		EE7383BB22C7E0CF00DF9B7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE7383BE22C7E0CF00DF9B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE7383C022C7E0CF00DF9B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,6 +81,9 @@
 		EE73840F22CA527F00DF9B7F /* FileServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceProtocol.swift; sourceTree = "<group>"; };
 		EE73841122CA7AC600DF9B7F /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		EE73841322CA7D8400DF9B7F /* FileService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileService.entitlements; sourceTree = "<group>"; };
+		EE73841622CA8DB500DF9B7F /* FileListViewController + Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileListViewController + Column.swift"; sourceTree = "<group>"; };
+		EE73841922CA8F9600DF9B7F /* BaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCell.swift; sourceTree = "<group>"; };
+		EE73841B22CA8FCC00DF9B7F /* BaseTableCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCellVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,11 +134,12 @@
 		EE7383B622C7E0CC00DF9B7F /* FilesOperations */ = {
 			isa = PBXGroup;
 			children = (
+				EE73841822CA8F7F00DF9B7F /* View */,
+				EE73841422CA8D6C00DF9B7F /* Scenes */,
 				EE7383DC22C7F05B00DF9B7F /* Services */,
 				EE7383D822C7EF8900DF9B7F /* Model */,
 				EE7383D522C7EDB600DF9B7F /* Helpers */,
 				EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */,
-				EE7383B922C7E0CC00DF9B7F /* ViewController.swift */,
 				EE7383BB22C7E0CF00DF9B7F /* Assets.xcassets */,
 				EE7383BD22C7E0CF00DF9B7F /* Main.storyboard */,
 				EE7383C022C7E0CF00DF9B7F /* Info.plist */,
@@ -187,6 +194,32 @@
 				EE73840F22CA527F00DF9B7F /* FileServiceProtocol.swift */,
 			);
 			path = FileService;
+			sourceTree = "<group>";
+		};
+		EE73841422CA8D6C00DF9B7F /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				EE73841522CA8D7700DF9B7F /* FileList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		EE73841522CA8D7700DF9B7F /* FileList */ = {
+			isa = PBXGroup;
+			children = (
+				EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */,
+				EE73841622CA8DB500DF9B7F /* FileListViewController + Column.swift */,
+			);
+			path = FileList;
+			sourceTree = "<group>";
+		};
+		EE73841822CA8F7F00DF9B7F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE73841922CA8F9600DF9B7F /* BaseTableCell.swift */,
+				EE73841B22CA8FCC00DF9B7F /* BaseTableCellVM.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,12 +358,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE73841722CA8DB500DF9B7F /* FileListViewController + Column.swift in Sources */,
+				EE73841A22CA8F9600DF9B7F /* BaseTableCell.swift in Sources */,
 				EE7383DA22C7EF9700DF9B7F /* FileMeta.swift in Sources */,
-				EE7383BA22C7E0CC00DF9B7F /* ViewController.swift in Sources */,
+				EE7383BA22C7E0CC00DF9B7F /* FileListViewController.swift in Sources */,
 				EE7383D722C7EDDA00DF9B7F /* Array + safe.swift in Sources */,
 				EE7383E022CA433500DF9B7F /* TableViewCellProtocol.swift in Sources */,
 				EE73841222CA7AC600DF9B7F /* GlobalVariables.swift in Sources */,
 				EE7383DE22C7F06C00DF9B7F /* DataSource.swift in Sources */,
+				EE73841C22CA8FCC00DF9B7F /* BaseTableCellVM.swift in Sources */,
 				EE7383B822C7E0CC00DF9B7F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

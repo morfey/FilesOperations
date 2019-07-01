@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FileListViewController.swift
 //  FilesOperations
 //
 //  Created by Tymofii Hazhyi on 6/29/19.
@@ -9,27 +9,20 @@
 import Cocoa
 import FileService
 
-extension ViewController {
-    fileprivate enum CellIdentifiers {
-        static let nameCell = "NameCell"
-        static let dateCell = "DateCell"
-        static let sizeCell = "SizeCell"
-    }
-}
-
-class ViewController: NSViewController {
+class FileListViewController: NSViewController {
     @IBOutlet private(set) weak var filesTableView: NSTableView!
-    private(set) var fileService: FileServiceProtocol?
     fileprivate var dataStore: DataSource?
     fileprivate let sizeFormatter = ByteCountFormatter()
+    private(set) var fileService: FileServiceProtocol?
     private(set) var selectedFiles = [FileMeta]()
-    var sortOrder = DataSource.FileOrder.name
-    var sortAscending = true
+    private(set) var sortOrder = DataSource.FileOrder.name
+    private(set) var sortAscending = true
+    private(set) var columns: [Column] = []
     
     fileprivate lazy var dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .long
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
         return dateFormatter
     }()
     
@@ -58,12 +51,34 @@ class ViewController: NSViewController {
         }
     }
     
-    func reloadFileList() {
-        dataStore?.contentsOrderedBy(sortOrder, ascending: sortAscending)
+    fileprivate func reloadData() {
+        var columns: [Column] = []
+        if dataStore?.files.isEmpty != true {
+            var nameRows: [CellType] = []
+            var dateRows: [CellType] = []
+            var sizeRows: [CellType] = []
+            dataStore?.files.forEach {
+                let nameVM = BaseTableCellVM(text: $0.name, image: $0.icon)
+                let dateVM = BaseTableCellVM(text: dateFormatter.string(from: $0.date))
+                let sizeVM = BaseTableCellVM(text: $0.isDirectory ? "--" : sizeFormatter.string(fromByteCount: $0.size))
+                nameRows.append(.baseCell(nameVM))
+                dateRows.append(.baseCell(dateVM))
+                sizeRows.append(.baseCell(sizeVM))
+            }
+            columns.append(.name(nameRows))
+            columns.append(.date(dateRows))
+            columns.append(.size(sizeRows))
+        }
+        self.columns = columns
         filesTableView.reloadData()
     }
     
-    @IBAction func addFilesBtnTapped(_ sender: Any) {
+    fileprivate func reloadFileList() {
+        dataStore?.contentsOrderedBy(sortOrder, ascending: sortAscending)
+        reloadData()
+    }
+    
+    @IBAction private func addFilesBtnTapped(_ sender: Any) {
         guard let window = view.window else { return }
         
         let panel = NSOpenPanel()
@@ -74,18 +89,18 @@ class ViewController: NSViewController {
         panel.beginSheetModal(for: window) { [weak self] result in
             if result == NSApplication.ModalResponse.OK {
                 self?.dataStore = DataSource(urls: panel.urls)
-                self?.filesTableView.reloadData()
+                self?.reloadData()
             }
         }
     }
     
-    @IBAction func removeBtnTapped(_ sender: Any) {
+    @IBAction private func removeBtnTapped(_ sender: Any) {
         selectedFiles.forEach { item in
-            fileService?.remove(url: item.url) {
-                if let index = self.dataStore?.files.firstIndex(of: item) {
-                    self.dataStore?.remove(at: index)
+            fileService?.remove(item.url) { [weak self] in
+                if let index = self?.dataStore?.files.firstIndex(of: item) {
+                    self?.dataStore?.remove(at: index)
                     mainQueue { [weak self] in
-                        self?.filesTableView.reloadData()
+                        self?.reloadData()
                     }
                 }
             }
@@ -94,34 +109,15 @@ class ViewController: NSViewController {
 }
 
 // MARK: - NSTableViewDelegate
-extension ViewController: NSTableViewDelegate {
+extension FileListViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let column = tableColumn,
+            let columnIndex = tableView.tableColumns.firstIndex(of: column) else { return nil }
+        let type = rowType(atColumn: columnIndex, row: row)
+        let factory = TableViewCellHelper.factory(for: type)
         
-        var image: NSImage?
-        var text: String = ""
-        var cellIdentifier: String = ""
-        
-        guard let item = dataStore?.files[safe: row] else { return nil }
-        
-         if tableColumn == tableView.tableColumns[0] {
-            image = item.icon
-            text = item.name
-            cellIdentifier = CellIdentifiers.nameCell
-        } else if tableColumn == tableView.tableColumns[1] {
-            text = dateFormatter.string(from: item.date)
-            cellIdentifier = CellIdentifiers.dateCell
-        } else {
-            text = item.isDirectory ? "--" : sizeFormatter.string(fromByteCount: item.size)
-            cellIdentifier = CellIdentifiers.sizeCell
-        }
-        
-        guard
-            let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(cellIdentifier),
-                                          owner: nil) as? NSTableCellView
-        else { return nil }
-        
-        cell.textField?.stringValue = text
-        cell.imageView?.image = image
+        let cell: BasicTableCell? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(column.identifier.rawValue), owner: nil) as? BasicTableCell
+        cell?.configureCell(vm: factory.vm)
         return cell
     }
     
@@ -133,10 +129,23 @@ extension ViewController: NSTableViewDelegate {
             }
         }
     }
+    
+    private func rows(inColumn column: Int) -> [CellType] {
+        switch columns[column] {
+        case .name(let rows),
+             .size(let rows),
+             .date(let rows):
+            return rows
+        }
+    }
+    
+    private func rowType(atColumn colums: Int, row: Int) -> CellType? {
+        return rows(inColumn: colums)[safe: row]
+    }
 }
 
 // MARK: - NSTableViewDataSource
-extension ViewController: NSTableViewDataSource {
+extension FileListViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return dataStore?.files.count ?? 0
     }
