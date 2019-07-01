@@ -12,8 +12,6 @@ import FileService
 class FileListViewController: NSViewController {
     @IBOutlet private(set) weak var filesTableView: NSTableView!
     private(set) var selectedFiles = [FileMeta]()
-    private(set) var sortOrder = DataSource.FileOrder.name
-    private(set) var sortAscending = true
     private(set) var columns: [Column] = []
     
     private(set) var factory: Factory?
@@ -26,8 +24,7 @@ class FileListViewController: NSViewController {
     
     fileprivate lazy var dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
         return dateFormatter
     }()
     
@@ -39,14 +36,6 @@ class FileListViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let descriptorName = NSSortDescriptor(key: DataSource.FileOrder.name.rawValue, ascending: true)
-        let descriptorDate = NSSortDescriptor(key: DataSource.FileOrder.date.rawValue, ascending: true)
-        let descriptorSize = NSSortDescriptor(key: DataSource.FileOrder.size.rawValue, ascending: true)
-        
-        filesTableView.tableColumns[0].sortDescriptorPrototype = descriptorName
-        filesTableView.tableColumns[1].sortDescriptorPrototype = descriptorDate
-        filesTableView.tableColumns[2].sortDescriptorPrototype = descriptorSize
     }
     
     override var representedObject: Any? {
@@ -77,8 +66,8 @@ class FileListViewController: NSViewController {
         filesTableView.reloadData()
     }
     
-    fileprivate func reloadFileList() {
-        dataStore?.contentsOrderedBy(sortOrder, ascending: sortAscending)
+    fileprivate func reloadFileList(with order: DataSource.FileOrder, ascending: Bool) {
+        dataStore?.contentsOrderedBy(order, ascending: ascending)
         reloadData()
     }
     
@@ -159,10 +148,8 @@ extension FileListViewController: NSTableViewDataSource {
             return
         }
         
-        if let order = DataSource.FileOrder(rawValue: sortDescriptor.key!) {
-            sortOrder = order
-            sortAscending = sortDescriptor.ascending
-            reloadFileList()
+        if let key = sortDescriptor.key, let order = DataSource.FileOrder(rawValue: key) {
+            reloadFileList(with: order, ascending: sortDescriptor.ascending)
         }
     }
 }

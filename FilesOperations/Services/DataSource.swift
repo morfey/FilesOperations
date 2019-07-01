@@ -23,9 +23,11 @@ public struct DataSource  {
     
     public init(urls: [URL]) {
         self.urls = urls
-        let requiredAttributes: [URLResourceKey] = [.localizedNameKey,.effectiveIconKey, .typeIdentifierKey,
-                                                    .contentModificationDateKey, .fileSizeKey, .isDirectoryKey,
-                                                    .isPackageKey]
+        let requiredAttributes: [URLResourceKey] = [.localizedNameKey,
+                                                    .effectiveIconKey,
+                                                    .contentModificationDateKey,
+                                                    .fileSizeKey,
+                                                    .isDirectoryKey]
 
         urls.forEach {
             do {
@@ -53,35 +55,25 @@ public struct DataSource  {
         switch orderedBy {
         case .name:
             sortedFiles = files.sorted {
-                return sortMetadata(lhsIsFolder:true, rhsIsFolder: true, ascending: ascending,
-                                    attributeComparation:itemComparator(lhs:$0.name, rhs: $1.name, ascending:ascending))
+                return itemComparator(lhs: $0.name.lowercased(),
+                                      rhs: $1.name.lowercased(),
+                                      ascending: ascending)
             }
         case .size:
             sortedFiles = files.sorted {
-                return sortMetadata(lhsIsFolder:true, rhsIsFolder: true, ascending:ascending,
-                                    attributeComparation:itemComparator(lhs:$0.size, rhs: $1.size, ascending: ascending))
+                return itemComparator(lhs: $0.size,
+                                      rhs: $1.size,
+                                      ascending: ascending)
             }
         case .date:
             sortedFiles = files.sorted {
-                return sortMetadata(lhsIsFolder:true, rhsIsFolder: true, ascending:ascending,
-                                    attributeComparation:itemComparator(lhs:$0.date, rhs: $1.date, ascending:ascending))
+                return itemComparator(lhs: $0.date,
+                                      rhs: $1.date,
+                                      ascending: ascending)
             }
         }
         files = sortedFiles
     }
-}
-
-func sortMetadata(lhsIsFolder: Bool,
-                  rhsIsFolder: Bool,
-                  ascending: Bool,
-                  attributeComparation: Bool) -> Bool {
-    if lhsIsFolder && !rhsIsFolder {
-        return ascending ? true : false
-    }
-    else if !lhsIsFolder && rhsIsFolder {
-        return ascending ? false : true
-    }
-    return attributeComparation
 }
 
 func itemComparator<T: Comparable>(lhs: T, rhs: T, ascending: Bool) -> Bool {
