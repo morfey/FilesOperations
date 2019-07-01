@@ -16,6 +16,12 @@
 		EE7383DA22C7EF9700DF9B7F /* FileMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383D922C7EF9700DF9B7F /* FileMeta.swift */; };
 		EE7383DE22C7F06C00DF9B7F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383DD22C7F06C00DF9B7F /* DataSource.swift */; };
 		EE7383E022CA433500DF9B7F /* TableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383DF22CA433500DF9B7F /* TableViewCellProtocol.swift */; };
+		EE73840422CA51EE00DF9B7F /* FileService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = EE7383F922CA51ED00DF9B7F /* FileService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EE73840A22CA520000DF9B7F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73840922CA520000DF9B7F /* main.swift */; };
+		EE73840C22CA522D00DF9B7F /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73840B22CA522D00DF9B7F /* FileService.swift */; };
+		EE73840E22CA525200DF9B7F /* FileServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73840D22CA525200DF9B7F /* FileServiceDelegate.swift */; };
+		EE73841022CA527F00DF9B7F /* FileServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73840F22CA527F00DF9B7F /* FileServiceProtocol.swift */; };
+		EE73841222CA7AC600DF9B7F /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73841122CA7AC600DF9B7F /* GlobalVariables.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,7 +32,28 @@
 			remoteGlobalIDString = EE7383B322C7E0CC00DF9B7F;
 			remoteInfo = FilesOperations;
 		};
+		EE73840222CA51EE00DF9B7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE7383AC22C7E0CC00DF9B7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE7383F822CA51ED00DF9B7F;
+			remoteInfo = FileService;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EE7383F422CA519C00DF9B7F /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				EE73840422CA51EE00DF9B7F /* FileService.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EE7383B422C7E0CC00DF9B7F /* FilesOperations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilesOperations.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,6 +70,14 @@
 		EE7383D922C7EF9700DF9B7F /* FileMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMeta.swift; sourceTree = "<group>"; };
 		EE7383DD22C7F06C00DF9B7F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		EE7383DF22CA433500DF9B7F /* TableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellProtocol.swift; sourceTree = "<group>"; };
+		EE7383F922CA51ED00DF9B7F /* FileService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = FileService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE73840122CA51EE00DF9B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE73840922CA520000DF9B7F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		EE73840B22CA522D00DF9B7F /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		EE73840D22CA525200DF9B7F /* FileServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceDelegate.swift; sourceTree = "<group>"; };
+		EE73840F22CA527F00DF9B7F /* FileServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServiceProtocol.swift; sourceTree = "<group>"; };
+		EE73841122CA7AC600DF9B7F /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
+		EE73841322CA7D8400DF9B7F /* FileService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileService.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +95,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE7383F622CA51ED00DF9B7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -68,6 +110,7 @@
 			children = (
 				EE7383B622C7E0CC00DF9B7F /* FilesOperations */,
 				EE7383C922C7E0CF00DF9B7F /* FilesOperationsTests */,
+				EE7383FA22CA51ED00DF9B7F /* FileService */,
 				EE7383B522C7E0CC00DF9B7F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,6 +120,7 @@
 			children = (
 				EE7383B422C7E0CC00DF9B7F /* FilesOperations.app */,
 				EE7383C622C7E0CF00DF9B7F /* FilesOperationsTests.xctest */,
+				EE7383F922CA51ED00DF9B7F /* FileService.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				EE7383D622C7EDDA00DF9B7F /* Array + safe.swift */,
+				EE73841122CA7AC600DF9B7F /* GlobalVariables.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -131,6 +176,19 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		EE7383FA22CA51ED00DF9B7F /* FileService */ = {
+			isa = PBXGroup;
+			children = (
+				EE73841322CA7D8400DF9B7F /* FileService.entitlements */,
+				EE73840122CA51EE00DF9B7F /* Info.plist */,
+				EE73840922CA520000DF9B7F /* main.swift */,
+				EE73840B22CA522D00DF9B7F /* FileService.swift */,
+				EE73840D22CA525200DF9B7F /* FileServiceDelegate.swift */,
+				EE73840F22CA527F00DF9B7F /* FileServiceProtocol.swift */,
+			);
+			path = FileService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -141,10 +199,12 @@
 				EE7383B022C7E0CC00DF9B7F /* Sources */,
 				EE7383B122C7E0CC00DF9B7F /* Frameworks */,
 				EE7383B222C7E0CC00DF9B7F /* Resources */,
+				EE7383F422CA519C00DF9B7F /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EE73840322CA51EE00DF9B7F /* PBXTargetDependency */,
 			);
 			name = FilesOperations;
 			productName = FilesOperations;
@@ -169,6 +229,23 @@
 			productReference = EE7383C622C7E0CF00DF9B7F /* FilesOperationsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		EE7383F822CA51ED00DF9B7F /* FileService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE73840522CA51EE00DF9B7F /* Build configuration list for PBXNativeTarget "FileService" */;
+			buildPhases = (
+				EE7383F522CA51ED00DF9B7F /* Sources */,
+				EE7383F622CA51ED00DF9B7F /* Frameworks */,
+				EE7383F722CA51ED00DF9B7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FileService;
+			productName = FileService;
+			productReference = EE7383F922CA51ED00DF9B7F /* FileService.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -185,6 +262,15 @@
 					EE7383C522C7E0CF00DF9B7F = {
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = EE7383B322C7E0CC00DF9B7F;
+					};
+					EE7383F822CA51ED00DF9B7F = {
+						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -203,6 +289,7 @@
 			targets = (
 				EE7383B322C7E0CC00DF9B7F /* FilesOperations */,
 				EE7383C522C7E0CF00DF9B7F /* FilesOperationsTests */,
+				EE7383F822CA51ED00DF9B7F /* FileService */,
 			);
 		};
 /* End PBXProject section */
@@ -224,6 +311,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE7383F722CA51ED00DF9B7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -235,6 +329,7 @@
 				EE7383BA22C7E0CC00DF9B7F /* ViewController.swift in Sources */,
 				EE7383D722C7EDDA00DF9B7F /* Array + safe.swift in Sources */,
 				EE7383E022CA433500DF9B7F /* TableViewCellProtocol.swift in Sources */,
+				EE73841222CA7AC600DF9B7F /* GlobalVariables.swift in Sources */,
 				EE7383DE22C7F06C00DF9B7F /* DataSource.swift in Sources */,
 				EE7383B822C7E0CC00DF9B7F /* AppDelegate.swift in Sources */,
 			);
@@ -248,6 +343,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE7383F522CA51ED00DF9B7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE73840C22CA522D00DF9B7F /* FileService.swift in Sources */,
+				EE73840E22CA525200DF9B7F /* FileServiceDelegate.swift in Sources */,
+				EE73840A22CA520000DF9B7F /* main.swift in Sources */,
+				EE73841022CA527F00DF9B7F /* FileServiceProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -255,6 +361,11 @@
 			isa = PBXTargetDependency;
 			target = EE7383B322C7E0CC00DF9B7F /* FilesOperations */;
 			targetProxy = EE7383C722C7E0CF00DF9B7F /* PBXContainerItemProxy */;
+		};
+		EE73840322CA51EE00DF9B7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE7383F822CA51ED00DF9B7F /* FileService */;
+			targetProxy = EE73840222CA51EE00DF9B7F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -388,6 +499,7 @@
 		EE7383D022C7E0CF00DF9B7F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FilesOperations/FilesOperations.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -407,6 +519,7 @@
 		EE7383D122C7E0CF00DF9B7F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = FilesOperations/FilesOperations.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -465,6 +578,47 @@
 			};
 			name = Release;
 		};
+		EE73840622CA51EE00DF9B7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = MTLL4AFL9Z;
+				INFOPLIST_FILE = FileService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.timh.FileService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EE73840722CA51EE00DF9B7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = MTLL4AFL9Z;
+				INFOPLIST_FILE = FileService/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.timh.FileService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -491,6 +645,15 @@
 			buildConfigurations = (
 				EE7383D322C7E0CF00DF9B7F /* Debug */,
 				EE7383D422C7E0CF00DF9B7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE73840522CA51EE00DF9B7F /* Build configuration list for PBXNativeTarget "FileService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE73840622CA51EE00DF9B7F /* Debug */,
+				EE73840722CA51EE00DF9B7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -44,8 +44,11 @@ public struct DataSource  {
         }
     }
     
+    mutating func remove(at index: Int) {
+        files.remove(at: index)
+    }
     
-    func contentsOrderedBy(_ orderedBy: FileOrder, ascending: Bool) -> [FileMeta] {
+    mutating func contentsOrderedBy(_ orderedBy: FileOrder, ascending: Bool) {
         let sortedFiles: [FileMeta]
         switch orderedBy {
         case .name:
@@ -64,7 +67,7 @@ public struct DataSource  {
                                     attributeComparation:itemComparator(lhs:$0.date, rhs: $1.date, ascending:ascending))
             }
         }
-        return sortedFiles
+        files = sortedFiles
     }
 }
 
