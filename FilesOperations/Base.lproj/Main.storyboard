@@ -704,7 +704,7 @@
         <!--File List View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="FileListViewController" customModule="FilesOperations" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilesListVC" id="XfG-lQ-9wD" customClass="FileListViewController" customModule="FilesOperations" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -726,13 +726,13 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" headerView="ZWo-xN-gpr" viewBased="YES" id="TKs-rr-x8E">
-                                            <rect key="frame" x="0.0" y="0.0" width="756" height="190"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="642" height="190"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="NameCell" editable="NO" width="225" minWidth="40" maxWidth="1000" id="r2I-gw-Nbt">
+                                                <tableColumn identifier="NameCell" editable="NO" width="111" minWidth="40" maxWidth="1000" id="r2I-gw-Nbt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -746,7 +746,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="NameCell" id="YfO-a1-oIQ" customClass="BasicTableCell" customModule="FilesOperations" customModuleProvider="target">
-                                                            <rect key="frame" x="1" y="1" width="225" height="17"/>
+                                                            <rect key="frame" x="1" y="1" width="111" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKn-zK-rtd">
@@ -755,7 +755,7 @@
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="j3k-m7-z6P"/>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofa-5k-7oz">
-                                                                    <rect key="frame" x="25" y="0.0" width="200" height="17"/>
+                                                                    <rect key="frame" x="25" y="0.0" width="86" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="QXZ-zK-8rg">
                                                                         <font key="font" metaFont="system"/>
@@ -785,7 +785,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="DateCell" id="ibm-Uc-mhh" customClass="BasicTableCell" customModule="FilesOperations" customModuleProvider="target">
-                                                            <rect key="frame" x="229" y="1" width="159" height="17"/>
+                                                            <rect key="frame" x="115" y="1" width="159" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pji-Zw-Zgn">
@@ -818,7 +818,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="SizeCell" id="wrw-ZU-Mp4" customClass="BasicTableCell" customModule="FilesOperations" customModuleProvider="target">
-                                                            <rect key="frame" x="391" y="1" width="363" height="17"/>
+                                                            <rect key="frame" x="277" y="1" width="363" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0NX-kZ-yTy">
@@ -845,7 +845,7 @@
                                         </tableView>
                                     </subviews>
                                 </clipView>
-                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.41366906474820142" horizontal="YES" id="Duv-MI-Lew">
+                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.70121951219512191" horizontal="YES" id="Duv-MI-Lew">
                                     <rect key="frame" x="1" y="199" width="478" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -854,7 +854,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="ZWo-xN-gpr">
-                                    <rect key="frame" x="0.0" y="0.0" width="756" height="25"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="642" height="25"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>

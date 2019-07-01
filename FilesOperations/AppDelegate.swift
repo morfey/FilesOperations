@@ -8,19 +8,16 @@
 
 import Cocoa
 
-@NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-
-
+    var controller: NSWindowController?
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        
+        let container = DependencyContainer()
+        let listViewController = container.makeFilesListViewController()
+        
+        controller = NSStoryboard(name: .main).instantiateInitialController() as? NSWindowController
+        controller?.contentViewController = listViewController
+        controller?.window?.makeKeyAndOrderFront(nil)
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-
 }
-

@@ -11,13 +11,18 @@ import FileService
 
 class FileListViewController: NSViewController {
     @IBOutlet private(set) weak var filesTableView: NSTableView!
-    fileprivate var dataStore: DataSource?
-    fileprivate let sizeFormatter = ByteCountFormatter()
-    private(set) var fileService: FileServiceProtocol?
     private(set) var selectedFiles = [FileMeta]()
     private(set) var sortOrder = DataSource.FileOrder.name
     private(set) var sortAscending = true
     private(set) var columns: [Column] = []
+    
+    private(set) var factory: Factory?
+    private lazy var service = factory?.makeFileService()
+    private lazy var dataStore = factory?.makeDataSource()
+    
+    fileprivate lazy var sizeFormatter = ByteCountFormatter()
+
+    typealias Factory = ViewControllerFactory & FileServiceFactory & DataSouceFactory
     
     fileprivate lazy var dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
@@ -26,15 +31,14 @@ class FileListViewController: NSViewController {
         return dateFormatter
     }()
     
+    static func makeFromStoryboard(with factory: Factory) -> FileListViewController {
+        let vc = NSStoryboard(name: .main).instantiateVC(withIdentifier: "FilesListVC") as! FileListViewController
+        vc.factory = factory
+        return vc
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let connection = NSXPCConnection(serviceName: "com.timh.FileService")
-        connection.remoteObjectInterface = NSXPCInterface(with: FileServiceProtocol.self)
-        connection.resume()
-        
-        fileService = connection.remoteObjectProxyWithErrorHandler { error in
-            print("Received error:", error)
-        } as? FileServiceProtocol
         
         let descriptorName = NSSortDescriptor(key: DataSource.FileOrder.name.rawValue, ascending: true)
         let descriptorDate = NSSortDescriptor(key: DataSource.FileOrder.date.rawValue, ascending: true)
@@ -96,7 +100,7 @@ class FileListViewController: NSViewController {
     
     @IBAction private func removeBtnTapped(_ sender: Any) {
         selectedFiles.forEach { item in
-            fileService?.remove(item.url) { [weak self] in
+            service?.remote?.remove(item.url) { [weak self] in
                 if let index = self?.dataStore?.files.firstIndex(of: item) {
                     self?.dataStore?.remove(at: index)
                     mainQueue { [weak self] in
