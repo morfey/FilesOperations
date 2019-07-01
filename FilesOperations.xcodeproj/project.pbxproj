@@ -12,6 +12,10 @@
 		EE7383BC22C7E0CF00DF9B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE7383BB22C7E0CF00DF9B7F /* Assets.xcassets */; };
 		EE7383BF22C7E0CF00DF9B7F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE7383BD22C7E0CF00DF9B7F /* Main.storyboard */; };
 		EE7383CB22C7E0CF00DF9B7F /* FilesOperationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383CA22C7E0CF00DF9B7F /* FilesOperationsTests.swift */; };
+		EE7383D722C7EDDA00DF9B7F /* Array + safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383D622C7EDDA00DF9B7F /* Array + safe.swift */; };
+		EE7383DA22C7EF9700DF9B7F /* FileMeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383D922C7EF9700DF9B7F /* FileMeta.swift */; };
+		EE7383DE22C7F06C00DF9B7F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383DD22C7F06C00DF9B7F /* DataSource.swift */; };
+		EE7383E022CA433500DF9B7F /* TableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383DF22CA433500DF9B7F /* TableViewCellProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,10 @@
 		EE7383C622C7E0CF00DF9B7F /* FilesOperationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FilesOperationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE7383CA22C7E0CF00DF9B7F /* FilesOperationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesOperationsTests.swift; sourceTree = "<group>"; };
 		EE7383CC22C7E0CF00DF9B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE7383D622C7EDDA00DF9B7F /* Array + safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + safe.swift"; sourceTree = "<group>"; };
+		EE7383D922C7EF9700DF9B7F /* FileMeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMeta.swift; sourceTree = "<group>"; };
+		EE7383DD22C7F06C00DF9B7F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		EE7383DF22CA433500DF9B7F /* TableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,9 @@
 		EE7383B622C7E0CC00DF9B7F /* FilesOperations */ = {
 			isa = PBXGroup;
 			children = (
+				EE7383DC22C7F05B00DF9B7F /* Services */,
+				EE7383D822C7EF8900DF9B7F /* Model */,
+				EE7383D522C7EDB600DF9B7F /* Helpers */,
 				EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */,
 				EE7383B922C7E0CC00DF9B7F /* ViewController.swift */,
 				EE7383BB22C7E0CF00DF9B7F /* Assets.xcassets */,
@@ -93,6 +104,31 @@
 				EE7383CC22C7E0CF00DF9B7F /* Info.plist */,
 			);
 			path = FilesOperationsTests;
+			sourceTree = "<group>";
+		};
+		EE7383D522C7EDB600DF9B7F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EE7383D622C7EDDA00DF9B7F /* Array + safe.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EE7383D822C7EF8900DF9B7F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE7383D922C7EF9700DF9B7F /* FileMeta.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EE7383DC22C7F05B00DF9B7F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EE7383DD22C7F06C00DF9B7F /* DataSource.swift */,
+				EE7383DF22CA433500DF9B7F /* TableViewCellProtocol.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,7 +231,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE7383DA22C7EF9700DF9B7F /* FileMeta.swift in Sources */,
 				EE7383BA22C7E0CC00DF9B7F /* ViewController.swift in Sources */,
+				EE7383D722C7EDDA00DF9B7F /* Array + safe.swift in Sources */,
+				EE7383E022CA433500DF9B7F /* TableViewCellProtocol.swift in Sources */,
+				EE7383DE22C7F06C00DF9B7F /* DataSource.swift in Sources */,
 				EE7383B822C7E0CC00DF9B7F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
