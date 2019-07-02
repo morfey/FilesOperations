@@ -9,5 +9,5 @@
 import Foundation
 
 @objc public protocol FileServiceProtocol {
-    func remove(_ url: URL, completion: @escaping () -> ())
+    func remove(_ url: URL, completion: (() -> ())?)
 }

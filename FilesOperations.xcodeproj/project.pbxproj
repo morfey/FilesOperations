@@ -29,6 +29,7 @@
 		EE73842022CAA13000DF9B7F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73841F22CAA13000DF9B7F /* main.swift */; };
 		EE73842222CAA4DD00DF9B7F /* StoryboardName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73842122CAA4DD00DF9B7F /* StoryboardName.swift */; };
 		EE73842422CAAD8D00DF9B7F /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73842322CAAD8D00DF9B7F /* DependencyContainer.swift */; };
+		EE73842622CB86F500DF9B7F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73842522CB86F500DF9B7F /* Progress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		EE73841F22CAA13000DF9B7F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		EE73842122CAA4DD00DF9B7F /* StoryboardName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardName.swift; sourceTree = "<group>"; };
 		EE73842322CAAD8D00DF9B7F /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		EE73842522CB86F500DF9B7F /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				EE73841922CA8F9600DF9B7F /* BaseTableCell.swift */,
+				EE73842522CB86F500DF9B7F /* Progress.swift */,
 				EE73841B22CA8FCC00DF9B7F /* BaseTableCellVM.swift */,
 			);
 			path = View;
@@ -376,6 +379,7 @@
 				EE73842022CAA13000DF9B7F /* main.swift in Sources */,
 				EE7383DA22C7EF9700DF9B7F /* FileMeta.swift in Sources */,
 				EE7383BA22C7E0CC00DF9B7F /* FileListViewController.swift in Sources */,
+				EE73842622CB86F500DF9B7F /* Progress.swift in Sources */,
 				EE73841E22CA9CBE00DF9B7F /* FileService.swift in Sources */,
 				EE7383D722C7EDDA00DF9B7F /* Array + safe.swift in Sources */,
 				EE7383E022CA433500DF9B7F /* TableViewCellProtocol.swift in Sources */,

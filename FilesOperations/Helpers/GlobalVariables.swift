@@ -13,3 +13,4 @@ var application: NSApplication { return NSApplication.shared }
 var appDelegate: AppDelegate { return application.delegate as! AppDelegate }
 
 func mainQueue(_ f: @escaping () -> Void) { DispatchQueue.main.async(execute: f) }
+func mainQuaueAfter(_ delay: Double, _ f: @escaping () -> Void) { DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: f) }

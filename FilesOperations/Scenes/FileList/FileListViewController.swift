@@ -10,7 +10,9 @@ import Cocoa
 import FileService
 
 class FileListViewController: NSViewController {
-    @IBOutlet private(set) weak var filesTableView: NSTableView!
+    @IBOutlet private weak var progressCircle: NSProgressIndicator!
+    @IBOutlet private weak var filesTableView: NSTableView!
+    
     private(set) var selectedFiles = [FileMeta]()
     private(set) var columns: [Column] = []
     
@@ -88,13 +90,16 @@ class FileListViewController: NSViewController {
     }
     
     @IBAction private func removeBtnTapped(_ sender: Any) {
-        selectedFiles.forEach { item in
-            service?.remote?.remove(item.url) { [weak self] in
-                if let index = self?.dataStore?.files.firstIndex(of: item) {
-                    self?.dataStore?.remove(at: index)
-                    mainQueue { [weak self] in
-                        self?.reloadData()
-                    }
+        progressCircle.doubleValue = 0
+        progressCircle.isHidden = false
+        service?.remove(urls: selectedFiles.map { $0.url }) { [weak self] item, progress in
+            if let index = self?.dataStore?.files.firstIndex(where: { $0.url == item }) {
+                self?.dataStore?.remove(at: index)
+                mainQueue { [weak self] in
+                    let _ = self?.progressCircle.animateToDoubleValue(value: progress)
+                    self?.filesTableView.removeRows(at: IndexSet(integer: index),
+                                                    withAnimation: .effectFade)
+                    self?.progressCircle.isHidden = progress > 99
                 }
             }
         }
@@ -153,4 +158,3 @@ extension FileListViewController: NSTableViewDataSource {
         }
     }
 }
-

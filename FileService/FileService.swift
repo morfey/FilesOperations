@@ -10,12 +10,12 @@ import Foundation
 
 class FileService: NSObject, FileServiceProtocol {
     let fileManager = FileManager.default
-    func remove(_ url: URL, completion: @escaping () -> ()) {
+    func remove(_ url: URL, completion: (() -> ())?) {
         do {
             try fileManager.removeItem(at: url)
-            completion()
+            completion?()
         } catch {
-            
+        
         }
     }
 }
