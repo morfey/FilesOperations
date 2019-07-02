@@ -92,7 +92,8 @@ class FileListViewController: NSViewController {
     @IBAction private func removeBtnTapped(_ sender: Any) {
         progressCircle.doubleValue = 0
         progressCircle.isHidden = false
-        service?.remove(urls: selectedFiles.map { $0.url }) { [weak self] item, progress in
+        let urls = selectedFiles.map { $0.url }
+        service?.remove(urls) { [weak self] item, progress in
             if let index = self?.dataStore?.files.firstIndex(where: { $0.url == item }) {
                 self?.dataStore?.remove(at: index)
                 mainQueue { [weak self] in
@@ -101,6 +102,18 @@ class FileListViewController: NSViewController {
                                                     withAnimation: .effectFade)
                     self?.progressCircle.isHidden = progress > 99
                 }
+            }
+        }
+    }
+    
+    @IBAction func md5BtnTapped(_ sender: Any) {
+        progressCircle.doubleValue = 0
+        progressCircle.isHidden = false
+        let urls = selectedFiles.map { $0.url }
+        service?.generateMd5(urls) { [weak self] item, progress in
+            mainQueue { [weak self] in
+                let _ = self?.progressCircle.animateToDoubleValue(value: progress)
+                self?.progressCircle.isHidden = progress > 99
             }
         }
     }

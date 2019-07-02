@@ -10,4 +10,5 @@ import Foundation
 
 @objc public protocol FileServiceProtocol {
     func remove(_ url: URL, completion: (() -> ())?)
+    func md5File(url: URL, completion: ((String?) -> ())?)
 }

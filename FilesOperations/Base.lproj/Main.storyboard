@@ -882,6 +882,16 @@
                                     <constraint firstAttribute="width" constant="32" id="Ko5-po-fJZ"/>
                                 </constraints>
                             </progressIndicator>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IsZ-JF-yoM">
+                                <rect key="frame" x="385" y="168" width="86" height="32"/>
+                                <buttonCell key="cell" type="push" title="MD5" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sbj-Vs-0B9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="md5BtnTapped:" target="XfG-lQ-9wD" id="x0m-P2-8dh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="LkK-iO-Yrx" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="4yb-aY-Dsg"/>
@@ -890,10 +900,13 @@
                             <constraint firstAttribute="trailing" secondItem="vYX-Zu-zAP" secondAttribute="trailing" constant="15" id="7lj-K0-KgE"/>
                             <constraint firstItem="vYX-Zu-zAP" firstAttribute="top" secondItem="ZWo-xN-gpr" secondAttribute="top" constant="16" id="B2j-kH-kvD"/>
                             <constraint firstAttribute="trailing" secondItem="dig-ep-kQ9" secondAttribute="trailing" constant="36" id="Cwd-f6-hb8"/>
+                            <constraint firstItem="IsZ-JF-yoM" firstAttribute="centerX" secondItem="5Mq-j1-JQU" secondAttribute="centerX" id="KAw-13-Tuh"/>
+                            <constraint firstItem="IsZ-JF-yoM" firstAttribute="top" secondItem="5Mq-j1-JQU" secondAttribute="bottom" constant="8" id="KzX-TB-DFJ"/>
                             <constraint firstItem="5Mq-j1-JQU" firstAttribute="centerX" secondItem="vYX-Zu-zAP" secondAttribute="centerX" id="cXs-th-1Lr"/>
                             <constraint firstAttribute="bottom" secondItem="dig-ep-kQ9" secondAttribute="bottom" constant="20" id="g87-RQ-oFg"/>
                             <constraint firstItem="5Mq-j1-JQU" firstAttribute="top" secondItem="vYX-Zu-zAP" secondAttribute="bottom" constant="8" id="i7a-Rd-Gw3"/>
                             <constraint firstItem="LkK-iO-Yrx" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="iOk-RX-mJ0"/>
+                            <constraint firstItem="IsZ-JF-yoM" firstAttribute="width" secondItem="5Mq-j1-JQU" secondAttribute="width" id="pyI-M6-5pW"/>
                             <constraint firstItem="dig-ep-kQ9" firstAttribute="leading" secondItem="LkK-iO-Yrx" secondAttribute="trailing" constant="36" id="s7H-Bc-6wf"/>
                             <constraint firstItem="vYX-Zu-zAP" firstAttribute="leading" secondItem="LkK-iO-Yrx" secondAttribute="trailing" constant="15" id="vsr-41-0BB"/>
                             <constraint firstItem="5Mq-j1-JQU" firstAttribute="height" secondItem="vYX-Zu-zAP" secondAttribute="height" id="yld-7C-LVa"/>
