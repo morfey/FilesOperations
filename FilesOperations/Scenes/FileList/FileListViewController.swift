@@ -15,10 +15,10 @@ class FileListViewController: NSViewController {
     
     private(set) var selectedFiles = [FileMeta]()
     private(set) var columns: [Column] = []
+    private(set) var factory: Factory!
     
-    private(set) var factory: Factory?
-    private lazy var service = factory?.makeFileService()
-    private lazy var dataStore = factory?.makeDataSource()
+    private lazy var service = factory.makeFileService()
+    private lazy var dataStore = factory.makeDataSource()
     
     fileprivate lazy var sizeFormatter = ByteCountFormatter()
 
@@ -48,11 +48,11 @@ class FileListViewController: NSViewController {
     
     fileprivate func reloadData() {
         var columns: [Column] = []
-        if dataStore?.files.isEmpty != true {
+        if !dataStore.files.isEmpty {
             var nameRows: [CellType] = []
             var dateRows: [CellType] = []
             var sizeRows: [CellType] = []
-            dataStore?.files.forEach {
+            dataStore.files.forEach {
                 let nameVM = BaseTableCellVM(text: $0.name, image: $0.icon)
                 let dateVM = BaseTableCellVM(text: dateFormatter.string(from: $0.date))
                 let sizeVM = BaseTableCellVM(text: $0.isDirectory ? "--" : sizeFormatter.string(fromByteCount: $0.size))
@@ -69,7 +69,7 @@ class FileListViewController: NSViewController {
     }
     
     fileprivate func reloadFileList(with order: DataSource.FileOrder, ascending: Bool) {
-        dataStore?.contentsOrderedBy(order, ascending: ascending)
+        dataStore.contentsOrderedBy(order, ascending: ascending)
         reloadData()
     }
     
@@ -90,32 +90,36 @@ class FileListViewController: NSViewController {
     }
     
     @IBAction private func removeBtnTapped(_ sender: Any) {
-        progressCircle.doubleValue = 0
-        progressCircle.isHidden = false
-        let urls = selectedFiles.map { $0.url }
-        service?.remove(urls) { [weak self] item, progress in
-            if let index = self?.dataStore?.files.firstIndex(where: { $0.url == item }) {
-                self?.dataStore?.remove(at: index)
-                mainQueue { [weak self] in
-                    let _ = self?.progressCircle.animateToDoubleValue(value: progress)
-                    self?.filesTableView.removeRows(at: IndexSet(integer: index),
-                                                    withAnimation: .effectFade)
-                    self?.progressCircle.isHidden = progress > 99
-                }
+        resetProgressCircle()
+        
+        service.remove(selectedFiles) { [weak self] item, progress in
+            self?.dataStore.remove(item)
+            mainQueue { [weak self] in
+                self?.progressCircle.animateToDoubleValue(value: progress)
+                self?.removeFromTableView(file: item)
             }
         }
     }
     
     @IBAction func md5BtnTapped(_ sender: Any) {
-        progressCircle.doubleValue = 0
-        progressCircle.isHidden = false
-        let urls = selectedFiles.map { $0.url }
-        service?.generateMd5(urls) { [weak self] item, progress in
+        resetProgressCircle()
+        
+        service.generateMd5(selectedFiles) { [weak self] item, progress in
             mainQueue { [weak self] in
-                let _ = self?.progressCircle.animateToDoubleValue(value: progress)
-                self?.progressCircle.isHidden = progress > 99
+                self?.progressCircle.animateToDoubleValue(value: progress)
             }
         }
+    }
+    
+    fileprivate func removeFromTableView(file: FileMeta) {
+        if let index = dataStore.index(of: file) {
+            filesTableView.removeRows(at: IndexSet(integer: index), withAnimation: .effectFade)
+        }
+    }
+    
+    fileprivate func resetProgressCircle() {
+        progressCircle.doubleValue = 0
+        progressCircle.isHidden = false
     }
 }
 
@@ -135,7 +139,7 @@ extension FileListViewController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
         selectedFiles = []
         filesTableView.selectedRowIndexes.forEach {
-            if let file = dataStore?.files[safe: $0] {
+            if let file = dataStore.files[safe: $0] {
                 selectedFiles.append(file)
             }
         }
@@ -158,7 +162,7 @@ extension FileListViewController: NSTableViewDelegate {
 // MARK: - NSTableViewDataSource
 extension FileListViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return dataStore?.files.count ?? 0
+        return dataStore.files.count
     }
     
     func tableView(_ tableView: NSTableView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {

@@ -18,24 +18,14 @@ class DependencyContainer {
     }()
 }
 
+protocol ViewControllerFactory {
+    func makeFilesListViewController() -> FileListViewController
+}
+
 extension DependencyContainer: ViewControllerFactory {
     func makeFilesListViewController() -> FileListViewController {
         return FileListViewController.makeFromStoryboard(with: self)
     }
-}
-
-extension DependencyContainer: FileServiceFactory, DataSouceFactory {
-    func makeFileService() -> FileService {
-        return FileService(connection: xpcConnection)
-    }
-    
-    func makeDataSource() -> DataSource {
-        return DataSource()
-    }
-}
-
-protocol ViewControllerFactory {
-    func makeFilesListViewController() -> FileListViewController
 }
 
 protocol FileServiceFactory {
@@ -44,4 +34,16 @@ protocol FileServiceFactory {
 
 protocol DataSouceFactory {
     func makeDataSource() -> DataSource
+}
+
+extension DependencyContainer: FileServiceFactory {
+    func makeFileService() -> FileService {
+        return FileService(connection: xpcConnection)
+    }
+}
+
+extension DependencyContainer: DataSouceFactory {
+    func makeDataSource() -> DataSource {
+        return DataSource()
+    }
 }

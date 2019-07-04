@@ -16,23 +16,31 @@ class FileService {
         remote = connection.remoteObjectProxy as? FileServiceProtocol
     }
     
-    func remove(_ urls: [URL], completion: ((URL, Double)->())?) {
+    func remove(_ files: [FileMeta], completion: ((FileMeta, Double) -> ())?) {
         var progress: Double = 0
-        let step = (Double(100) / Double(urls.count))
-        urls.forEach { [weak self] item in
-            self?.remote?.remove(item) {
-                progress += step
+        let step = (Double(100) / Double(files.count))
+        files.forEach { [weak self] item in
+            self?.remote?.remove(item.url) {
+                if item != files.last {
+                    progress += step
+                } else {
+                    progress = 100
+                }
                 completion?(item, progress)
             }
         }
     }
     
-    func generateMd5(_ urls: [URL], completion: ((URL, Double)->())?) {
+    func generateMd5(_ files: [FileMeta], completion: ((FileMeta, Double) -> ())?) {
         var progress: Double = 0
-        let step = (Double(100) / Double(urls.count))
-        urls.forEach { [weak self] item in
-            self?.remote?.md5File(url: item) { _ in
-                progress += step
+        let step = (Double(100) / Double(files.count))
+        files.forEach { [weak self] item in
+            self?.remote?.md5File(url: item.url) { _ in
+                if item != files.last {
+                    progress += step
+                } else {
+                    progress = 100
+                }
                 completion?(item, progress)
             }
         }

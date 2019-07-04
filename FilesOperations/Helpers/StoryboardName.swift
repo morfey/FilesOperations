@@ -19,6 +19,6 @@ extension NSStoryboard {
     }
     
     func instantiateVC<T: NSViewController>(withIdentifier identifier: String = String(describing: T.self)) -> T {
-        return (self.instantiateInitialController() as? NSWindowController)?.contentViewController as! T
+        return self.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(identifier)) as! T
     }
 }

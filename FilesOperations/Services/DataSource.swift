@@ -50,6 +50,14 @@ public struct DataSource  {
         files.remove(at: index)
     }
     
+    mutating func remove(_ file: FileMeta) {
+        files.removeAll(where: { $0 == file })
+    }
+    
+    func index(of file: FileMeta) -> Int? {
+        return files.firstIndex(of: file)
+    }
+    
     mutating func contentsOrderedBy(_ orderedBy: FileOrder, ascending: Bool) {
         let sortedFiles: [FileMeta]
         switch orderedBy {

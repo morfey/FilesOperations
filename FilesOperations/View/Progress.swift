@@ -19,7 +19,7 @@ public class ProgressBarAnimation: NSAnimation {
         self.initialValue = progressIndicator.doubleValue
         self.newValue = newValue
         super.init(duration: 0.2, animationCurve: .easeIn)
-        self.animationBlockingMode = .nonblockingThreaded
+        self.animationBlockingMode = .nonblocking
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -38,9 +38,12 @@ public class ProgressBarAnimation: NSAnimation {
 }
 
 extension NSProgressIndicator {
-    func animateToDoubleValue(value: Double) -> NSAnimation {
-        let animation = ProgressBarAnimation(self, newValue: value)
-        animation.start()
-        return animation
+    func animateToDoubleValue(value: Double) {
+        if value < 100 {
+            let animation = ProgressBarAnimation(self, newValue: value)
+            animation.start()
+        } else {
+            isHidden = true
+        }
     }
 }
