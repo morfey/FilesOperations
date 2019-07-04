@@ -20,7 +20,7 @@ class FileService: NSObject, FileServiceProtocol {
         }
     }
     
-    func md5File(url: URL, completion: ((String?) -> ())?) {
+    func md5File(url: URL, completion: ((String?, Error?) -> ())?) {
         let bufferSize = 1024 * 1024
         
         do {
@@ -46,11 +46,10 @@ class FileService: NSObject, FileServiceProtocol {
             
             var digest: [UInt8] = Array(repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
             _ = CC_MD5_Final(&digest, &context)
-            
-            completion?(digest.map { String(format: "%02hhx", $0) }.joined())
+            completion?(digest.map { String(format: "%02hhx", $0) }.joined(), nil)
         } catch {
             print("Cannot open file:", error.localizedDescription)
-            completion?(nil)
+            completion?(nil, error)
         }
     }
 }

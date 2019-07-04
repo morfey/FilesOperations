@@ -13,5 +13,6 @@ extension FileListViewController {
         case name([CellType])
         case size([CellType])
         case date([CellType])
+        case md5([CellType])
     }
 }

@@ -16,6 +16,7 @@ public struct FileMeta: CustomDebugStringConvertible, Equatable {
     let icon: NSImage
     let isDirectory: Bool
     let url: URL
+    var md5Hex: String?
     
     public var debugDescription: String {
         return name + " " + "Folder: \(isDirectory)" + " Size: \(size)"
@@ -23,5 +24,9 @@ public struct FileMeta: CustomDebugStringConvertible, Equatable {
     
     static public func == (lhs: FileMeta, rhs: FileMeta) -> Bool {
         return (lhs.url == rhs.url)
+    }
+    
+    public mutating func addHex(string: String) {
+        self.md5Hex = string
     }
 }

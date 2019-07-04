@@ -52,6 +52,7 @@ class FileListViewController: NSViewController {
             var nameRows: [CellType] = []
             var dateRows: [CellType] = []
             var sizeRows: [CellType] = []
+            var md5Rows: [CellType] = []
             dataStore.files.forEach {
                 let nameVM = BaseTableCellVM(text: $0.name, image: $0.icon)
                 let dateVM = BaseTableCellVM(text: dateFormatter.string(from: $0.date))
@@ -59,10 +60,12 @@ class FileListViewController: NSViewController {
                 nameRows.append(.baseCell(nameVM))
                 dateRows.append(.baseCell(dateVM))
                 sizeRows.append(.baseCell(sizeVM))
+                md5Rows.append(.baseCell(BaseTableCellVM(text: $0.md5Hex ?? "--")))
             }
             columns.append(.name(nameRows))
             columns.append(.date(dateRows))
             columns.append(.size(sizeRows))
+            columns.append(.md5(md5Rows))
         }
         self.columns = columns
         filesTableView.reloadData()
@@ -106,7 +109,15 @@ class FileListViewController: NSViewController {
         
         service.generateMd5(selectedFiles) { [weak self] item, progress in
             mainQueue { [weak self] in
-                self?.progressCircle.animateToDoubleValue(value: progress)
+                guard let `self` = self else { return }
+                switch progress {
+                case .some(let value):
+                    self.progressCircle.animateToDoubleValue(value: value)
+                case .done(let hexArray, let errors):
+                    self.addHexStrings(hexArray as? [String?] ?? [])
+                    self.progressCircle.isHidden = true
+                    self.presetErrorsIfNeeded(errors)
+                }
             }
         }
     }
@@ -121,6 +132,23 @@ class FileListViewController: NSViewController {
         progressCircle.doubleValue = 0
         progressCircle.isHidden = false
     }
+    
+    fileprivate func addHexStrings(_ hexArray: [String?]) {
+        dataStore.addMD5Hex(hexArray)
+        if filesTableView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MD5Cell")) == nil {
+            let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("MD5Cell"))
+            column.headerCell.stringValue = "MD5"
+            filesTableView.addTableColumn(column)
+        }
+        reloadData()
+    }
+    
+    fileprivate func presetErrorsIfNeeded(_ errors: [Error?]) {
+        let stringErrors = errors.compactMap { $0?.localizedDescription }
+        if !stringErrors.isEmpty {
+            self.presentAsSheet(self.factory.makeErrorListViewController(errors: stringErrors))
+        }
+    }
 }
 
 // MARK: - NSTableViewDelegate
@@ -131,7 +159,7 @@ extension FileListViewController: NSTableViewDelegate {
         let type = rowType(atColumn: columnIndex, row: row)
         let factory = TableViewCellHelper.factory(for: type)
         
-        let cell: BasicTableCell? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(column.identifier.rawValue), owner: nil) as? BasicTableCell
+        let cell: BasicTableCell? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("SizeCell"), owner: nil) as? BasicTableCell
         cell?.configureCell(vm: factory.vm)
         return cell
     }
@@ -146,11 +174,14 @@ extension FileListViewController: NSTableViewDelegate {
     }
     
     private func rows(inColumn column: Int) -> [CellType] {
-        switch columns[column] {
-        case .name(let rows),
-             .size(let rows),
-             .date(let rows):
+        switch columns[safe: column] {
+        case .name(let rows)?,
+             .size(let rows)?,
+             .md5(let rows)?,
+             .date(let rows)?:
             return rows
+        case .none:
+            return []
         }
     }
     

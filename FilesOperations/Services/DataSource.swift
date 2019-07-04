@@ -38,7 +38,8 @@ public struct DataSource  {
                                       size: Int64(properties.fileSize ?? 0),
                                       icon: properties.effectiveIcon as? NSImage  ?? NSImage(),
                                       isDirectory: properties.isDirectory ?? false,
-                                      url: $0))
+                                      url: $0,
+                                      md5Hex: nil))
             }
             catch {
                 print("Error reading file attributes")
@@ -57,6 +58,14 @@ public struct DataSource  {
     func index(of file: FileMeta) -> Int? {
         return files.firstIndex(of: file)
     }
+    
+    mutating func addMD5Hex(_ array: [String?]) {
+        array.enumerated().forEach {
+            if let string = $0.element {
+                files[$0.offset].addHex(string: string)
+            }
+        }
+    } 
     
     mutating func contentsOrderedBy(_ orderedBy: FileOrder, ascending: Bool) {
         let sortedFiles: [FileMeta]

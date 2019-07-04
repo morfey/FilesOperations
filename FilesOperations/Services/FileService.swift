@@ -31,18 +31,27 @@ class FileService {
         }
     }
     
-    func generateMd5(_ files: [FileMeta], completion: ((FileMeta, Double) -> ())?) {
-        var progress: Double = 0
+    func generateMd5(_ files: [FileMeta], completion: ((FileMeta, Progress) -> ())?) {
+        var progress: Progress = .some(0)
         let step = (Double(100) / Double(files.count))
+        var errors = [Error?]()
+        var hexArray = [String?]()
         files.forEach { [weak self] item in
-            self?.remote?.md5File(url: item.url) { _ in
-                if item != files.last {
-                    progress += step
+            self?.remote?.md5File(url: item.url) { hex, error in
+                errors.append(error)
+                hexArray.append(hex)
+                if item != files.last, case let .some(value) = progress {
+                    progress = .some(value + step)
                 } else {
-                    progress = 100
+                    progress = .done(hexArray, errors)
                 }
                 completion?(item, progress)
             }
         }
     }
+}
+
+enum Progress {
+    case some(Double)
+    case done([Any?], [Error?])
 }

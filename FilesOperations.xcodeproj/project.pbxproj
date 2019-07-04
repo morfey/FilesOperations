@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE62B1D722CE65E700BD11CD /* ErrorListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE62B1D522CE65E700BD11CD /* ErrorListViewController.swift */; };
+		EE62B1D822CE65E700BD11CD /* ErrorListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE62B1D622CE65E700BD11CD /* ErrorListViewController.xib */; };
 		EE7383B822C7E0CC00DF9B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */; };
 		EE7383BA22C7E0CC00DF9B7F /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */; };
 		EE7383BC22C7E0CF00DF9B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE7383BB22C7E0CF00DF9B7F /* Assets.xcassets */; };
@@ -64,6 +66,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EE62B1D522CE65E700BD11CD /* ErrorListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorListViewController.swift; sourceTree = "<group>"; };
+		EE62B1D622CE65E700BD11CD /* ErrorListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorListViewController.xib; sourceTree = "<group>"; };
 		EE7383B422C7E0CC00DF9B7F /* FilesOperations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilesOperations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +225,8 @@
 		EE73841522CA8D7700DF9B7F /* FileList */ = {
 			isa = PBXGroup;
 			children = (
+				EE62B1D522CE65E700BD11CD /* ErrorListViewController.swift */,
+				EE62B1D622CE65E700BD11CD /* ErrorListViewController.xib */,
 				EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */,
 				EE73841622CA8DB500DF9B7F /* FileListViewController + Column.swift */,
 			);
@@ -349,6 +355,7 @@
 			files = (
 				EE7383BC22C7E0CF00DF9B7F /* Assets.xcassets in Resources */,
 				EE7383BF22C7E0CF00DF9B7F /* Main.storyboard in Resources */,
+				EE62B1D822CE65E700BD11CD /* ErrorListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +393,7 @@
 				EE73841222CA7AC600DF9B7F /* GlobalVariables.swift in Sources */,
 				EE7383DE22C7F06C00DF9B7F /* DataSource.swift in Sources */,
 				EE73841C22CA8FCC00DF9B7F /* BaseTableCellVM.swift in Sources */,
+				EE62B1D722CE65E700BD11CD /* ErrorListViewController.swift in Sources */,
 				EE7383B822C7E0CC00DF9B7F /* AppDelegate.swift in Sources */,
 				EE73842222CAA4DD00DF9B7F /* StoryboardName.swift in Sources */,
 			);
