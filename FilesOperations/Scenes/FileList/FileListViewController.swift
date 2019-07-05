@@ -7,11 +7,10 @@
 //
 
 import Cocoa
-import FileService
 
 class FileListViewController: NSViewController {
-    @IBOutlet private weak var md5Btn: NSButton!
-    @IBOutlet private weak var removeBtn: NSButton!
+    @IBOutlet weak var operationPopButton: NSPopUpButton!
+    @IBOutlet private weak var runBtn: NSButton!
     @IBOutlet private weak var filesTableView: NSTableView!
     @IBOutlet private weak var progressCircle: NSProgressIndicator!
     
@@ -43,6 +42,9 @@ class FileListViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        operationPopButton.removeAllItems()
+        operationPopButton.addItem(withTitle: "Remove")
+        operationPopButton.addItem(withTitle: "MD5")
     }
     
     override var representedObject: Any? {
@@ -76,7 +78,7 @@ class FileListViewController: NSViewController {
         }
         self.columns = columns
         filesTableView.reloadData()
-        operationAvailability()
+        operationBtnsAvailability()
     }
     
     fileprivate func reloadFileList(with order: DataSource.FileOrder, ascending: Bool) {
@@ -117,9 +119,8 @@ class FileListViewController: NSViewController {
         }
     }
     
-    fileprivate func operationAvailability() {
-        removeBtn.isEnabled = !selectedFiles.isEmpty
-        md5Btn.isEnabled = !selectedFiles.isEmpty
+    fileprivate func operationBtnsAvailability() {
+        runBtn.isEnabled = !selectedFiles.isEmpty
     }
     
     // MARK: - Actions
@@ -139,39 +140,48 @@ class FileListViewController: NSViewController {
         }
     }
     
-    @IBAction private func removeBtnTapped(_ sender: Any) {
+    @IBAction private func runBtnTapped(_ sender: Any) {
         resetProgressCircle()
         
-        service.remove(selectedFiles) { [weak self] item, progress in
-            mainQueue { [weak self] in
-                self?.removeFromTableView(file: item)
-                self?.dataStore.remove(item)
-                switch progress {
-                case .some(let value):
-                    self?.progressCircle.animateToDoubleValue(value: value)
-                case .done(_, let errors):
-                    self?.progressCircle.isHidden = true
-                    self?.presentErrorsIfNeeded(errors)
-                }
+        service.runSelectedOperation(for: selectedFiles) { [weak self] operation, item, progress in
+            switch operation {
+            case .md5:
+                self?.handleMD5Progress(item, progress: progress)
+            case .remove:
+                self?.handleRemoveProgress(item, progress: progress)
             }
         }
     }
     
-    @IBAction func md5BtnTapped(_ sender: Any) {
-        resetProgressCircle()
-        
-        service.generateMd5(selectedFiles) { [weak self] item, progress in
-            mainQueue { [weak self] in
-                switch progress {
-                case .some(let value):
-                    self?.progressCircle.animateToDoubleValue(value: value)
-                case .done(let hexArray, let errors):
-                    self?.addHexStrings(hexArray as? [String?] ?? [])
-                    self?.progressCircle.isHidden = true
-                    self?.presentErrorsIfNeeded(errors)
-                }
+    fileprivate func handleMD5Progress(_ item: FileMeta, progress: Progress) {
+        mainQueue { [weak self] in
+            switch progress {
+            case .some(let value):
+                self?.progressCircle.animateToDoubleValue(value: value)
+            case .done(let hexArray, let errors):
+                self?.addHexStrings(hexArray as? [String?] ?? [])
+                self?.progressCircle.isHidden = true
+                self?.presentErrorsIfNeeded(errors)
             }
         }
+    }
+    
+    fileprivate func handleRemoveProgress(_ item: FileMeta, progress: Progress) {
+        mainQueue { [weak self] in
+            self?.removeFromTableView(file: item)
+            self?.dataStore.remove(item)
+            switch progress {
+            case .some(let value):
+                self?.progressCircle.animateToDoubleValue(value: value)
+            case .done(_, let errors):
+                self?.progressCircle.isHidden = true
+                self?.presentErrorsIfNeeded(errors)
+            }
+        }
+    }
+    
+    @IBAction private func operationPopBtnValueChanged(_ sender: NSPopUpButton) {
+        service.setSelected(operation: FileService.Operation.allCases[sender.indexOfSelectedItem])
     }
 }
 
@@ -196,7 +206,7 @@ extension FileListViewController: NSTableViewDelegate {
                 selectedFiles.append(file)
             }
         }
-        operationAvailability()
+        operationBtnsAvailability()
     }
     
     private func rows(inColumn column: Int) -> [CellType] {
