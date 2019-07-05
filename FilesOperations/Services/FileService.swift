@@ -16,15 +16,17 @@ class FileService {
         remote = connection.remoteObjectProxy as? FileServiceProtocol
     }
     
-    func remove(_ files: [FileMeta], completion: ((FileMeta, Double) -> ())?) {
-        var progress: Double = 0
+    func remove(_ files: [FileMeta], completion: ((FileMeta, Progress) -> ())?) {
+        var progress: Progress = .some(0)
+        var errors = [Error?]()
         let step = (Double(100) / Double(files.count))
         files.forEach { [weak self] item in
-            self?.remote?.remove(item.url) {
-                if item != files.last {
-                    progress += step
+            self?.remote?.remove(item.url) { error in
+                errors.append(error)
+                if item != files.last, case let .some(value) = progress {
+                    progress = .some(value + step)
                 } else {
-                    progress = 100
+                    progress = .done([], errors)
                 }
                 completion?(item, progress)
             }
@@ -49,9 +51,4 @@ class FileService {
             }
         }
     }
-}
-
-enum Progress {
-    case some(Double)
-    case done([Any?], [Error?])
 }

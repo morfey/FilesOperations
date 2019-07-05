@@ -11,12 +11,12 @@ import CommonCrypto
 
 class FileService: NSObject, FileServiceProtocol {
     let fileManager = FileManager.default
-    func remove(_ url: URL, completion: (() -> ())?) {
+    func remove(_ url: URL, completion: ((Error?) -> ())?) {
         do {
             try fileManager.removeItem(at: url)
-            completion?()
+            completion?(nil)
         } catch {
-        
+            completion?(error)
         }
     }
     

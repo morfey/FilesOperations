@@ -733,7 +733,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="NameCell" editable="NO" width="111" minWidth="40" maxWidth="1000" id="r2I-gw-Nbt">
+                                                <tableColumn identifier="NameColumn" editable="NO" width="111" minWidth="40" maxWidth="1000" id="r2I-gw-Nbt">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -747,7 +747,7 @@
                                                     <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="name"/>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="NameCell" id="YfO-a1-oIQ" customClass="BasicTableCell" customModule="FilesOperations" customModuleProvider="target">
+                                                        <tableCellView identifier="ImageCell" id="YfO-a1-oIQ" customClass="BasicTableCell" customModule="FilesOperations" customModuleProvider="target">
                                                             <rect key="frame" x="1" y="1" width="111" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -773,8 +773,8 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="DateCell" editable="NO" width="159" minWidth="40" maxWidth="1000" id="KWG-pb-hP4">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Date">
+                                                <tableColumn identifier="DateColumn" editable="NO" width="159" minWidth="40" maxWidth="1000" id="KWG-pb-hP4">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Date Modified">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -787,7 +787,7 @@
                                                     <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="date"/>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="DateCell" id="ibm-Uc-mhh" customClass="BasicTableCell" customModule="FilesOperations" customModuleProvider="target">
+                                                        <tableCellView identifier="TextCell" id="ibm-Uc-mhh" customClass="BasicTableCell" customModule="FilesOperations" customModuleProvider="target">
                                                             <rect key="frame" x="115" y="1" width="159" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -807,7 +807,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="SizeCell" editable="NO" width="102" minWidth="40" maxWidth="1000" id="Non-CX-xdp">
+                                                <tableColumn identifier="SizeColumn" editable="NO" width="102" minWidth="40" maxWidth="1000" id="Non-CX-xdp">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Size">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>

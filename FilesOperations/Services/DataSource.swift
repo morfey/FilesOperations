@@ -17,6 +17,7 @@ public struct DataSource  {
         case name
         case date
         case size
+        case md5Hex
     }
     
     init() {}
@@ -86,6 +87,12 @@ public struct DataSource  {
             sortedFiles = files.sorted {
                 return itemComparator(lhs: $0.date,
                                       rhs: $1.date,
+                                      ascending: ascending)
+            }
+        case .md5Hex:
+            sortedFiles = files.sorted {
+                return itemComparator(lhs: $0.md5Hex ?? "--",
+                                      rhs: $1.md5Hex ?? "--",
                                       ascending: ascending)
             }
         }

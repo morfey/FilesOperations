@@ -10,15 +10,15 @@ import Foundation
 import AppKit
 
 public class ProgressBarAnimation: NSAnimation {
+    let newValue: Double
     let indicator: NSProgressIndicator
     let initialValue: Double
-    let newValue: Double
     
     init(_ progressIndicator: NSProgressIndicator, newValue: Double) {
+        self.newValue = newValue
         self.indicator = progressIndicator
         self.initialValue = progressIndicator.doubleValue
-        self.newValue = newValue
-        super.init(duration: 0.2, animationCurve: .easeIn)
+        super.init(duration: 0.1, animationCurve: .easeIn)
         self.animationBlockingMode = .nonblocking
     }
     
@@ -29,21 +29,16 @@ public class ProgressBarAnimation: NSAnimation {
         super.init(coder: aDecoder)
     }
     
-    override public var currentProgress : NSAnimation.Progress {
+    override public var currentProgress: NSAnimation.Progress {
         didSet {
-            let delta = self.newValue - self.initialValue
-            self.indicator.doubleValue = self.initialValue + (delta * Double(currentProgress))
+            let diff = newValue - initialValue
+            indicator.doubleValue = initialValue + (diff * Double(currentProgress))
         }
     }
 }
 
 extension NSProgressIndicator {
     func animateToDoubleValue(value: Double) {
-        if value < 100 {
-            let animation = ProgressBarAnimation(self, newValue: value)
-            animation.start()
-        } else {
-            isHidden = true
-        }
+        ProgressBarAnimation(self, newValue: value).start()
     }
 }
