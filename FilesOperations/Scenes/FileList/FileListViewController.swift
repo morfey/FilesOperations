@@ -84,57 +84,6 @@ class FileListViewController: NSViewController {
         reloadData()
     }
     
-    @IBAction private func addFilesBtnTapped(_ sender: Any) {
-        guard let window = view.window else { return }
-        
-        let panel = NSOpenPanel()
-        panel.canChooseFiles = true
-        panel.canChooseDirectories = true
-        panel.allowsMultipleSelection = true
-        
-        panel.beginSheetModal(for: window) { [weak self] result in
-            if result == NSApplication.ModalResponse.OK {
-                self?.dataStore.update(with: panel.urls)
-                self?.reloadData()
-            }
-        }
-    }
-    
-    @IBAction private func removeBtnTapped(_ sender: Any) {
-        resetProgressCircle()
-        
-        service.remove(selectedFiles) { [weak self] item, progress in
-            self?.dataStore.remove(item)
-            mainQueue { [weak self] in
-                switch progress {
-                case .some(let value):
-                    self?.progressCircle.animateToDoubleValue(value: value)
-                case .done(_, let errors):
-                    self?.progressCircle.isHidden = true
-                    self?.removeFromTableView(file: item)
-                    self?.presentErrorsIfNeeded(errors)
-                }
-            }
-        }
-    }
-    
-    @IBAction func md5BtnTapped(_ sender: Any) {
-        resetProgressCircle()
-        
-        service.generateMd5(selectedFiles) { [weak self] item, progress in
-            mainQueue { [weak self] in
-                switch progress {
-                case .some(let value):
-                    self?.progressCircle.animateToDoubleValue(value: value)
-                case .done(let hexArray, let errors):
-                    self?.addHexStrings(hexArray as? [String?] ?? [])
-                    self?.progressCircle.isHidden = true
-                    self?.presentErrorsIfNeeded(errors)
-                }
-            }
-        }
-    }
-    
     fileprivate func removeFromTableView(file: FileMeta) {
         if let index = dataStore.index(of: file) {
             filesTableView.removeRows(at: IndexSet(integer: index), withAnimation: .effectFade)
@@ -171,6 +120,58 @@ class FileListViewController: NSViewController {
     fileprivate func operationAvailability() {
         removeBtn.isEnabled = !selectedFiles.isEmpty
         md5Btn.isEnabled = !selectedFiles.isEmpty
+    }
+    
+    // MARK: - Actions
+    @IBAction private func addFilesBtnTapped(_ sender: Any) {
+        guard let window = view.window else { return }
+        
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = true
+        
+        panel.beginSheetModal(for: window) { [weak self] result in
+            if result == NSApplication.ModalResponse.OK {
+                self?.dataStore.update(with: panel.urls)
+                self?.reloadData()
+            }
+        }
+    }
+    
+    @IBAction private func removeBtnTapped(_ sender: Any) {
+        resetProgressCircle()
+        
+        service.remove(selectedFiles) { [weak self] item, progress in
+            mainQueue { [weak self] in
+                self?.removeFromTableView(file: item)
+                self?.dataStore.remove(item)
+                switch progress {
+                case .some(let value):
+                    self?.progressCircle.animateToDoubleValue(value: value)
+                case .done(_, let errors):
+                    self?.progressCircle.isHidden = true
+                    self?.presentErrorsIfNeeded(errors)
+                }
+            }
+        }
+    }
+    
+    @IBAction func md5BtnTapped(_ sender: Any) {
+        resetProgressCircle()
+        
+        service.generateMd5(selectedFiles) { [weak self] item, progress in
+            mainQueue { [weak self] in
+                switch progress {
+                case .some(let value):
+                    self?.progressCircle.animateToDoubleValue(value: value)
+                case .done(let hexArray, let errors):
+                    self?.addHexStrings(hexArray as? [String?] ?? [])
+                    self?.progressCircle.isHidden = true
+                    self?.presentErrorsIfNeeded(errors)
+                }
+            }
+        }
     }
 }
 

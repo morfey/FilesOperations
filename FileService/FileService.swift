@@ -13,7 +13,7 @@ class FileService: NSObject, FileServiceProtocol {
     let fileManager = FileManager.default
     func remove(_ url: URL, completion: ((Error?) -> ())?) {
         do {
-            try fileManager.removeItem(at: url)
+            try fileManager.trashItem(at: url, resultingItemURL: nil)
             completion?(nil)
         } catch {
             completion?(error)
