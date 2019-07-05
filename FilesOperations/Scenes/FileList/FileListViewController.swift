@@ -10,8 +10,10 @@ import Cocoa
 import FileService
 
 class FileListViewController: NSViewController {
-    @IBOutlet private weak var progressCircle: NSProgressIndicator!
+    @IBOutlet private weak var md5Btn: NSButton!
+    @IBOutlet private weak var removeBtn: NSButton!
     @IBOutlet private weak var filesTableView: NSTableView!
+    @IBOutlet private weak var progressCircle: NSProgressIndicator!
     
     private(set) var selectedFiles = [FileMeta]()
     private(set) var columns: [Column] = []
@@ -30,10 +32,13 @@ class FileListViewController: NSViewController {
         return dateFormatter
     }()
     
-    static func makeFromStoryboard(with factory: Factory) -> FileListViewController {
-        let vc = NSStoryboard(name: .main).instantiateVC(withIdentifier: "FilesListVC") as! FileListViewController
-        vc.factory = factory
-        return vc
+    init(factory: Factory) {
+        self.factory = factory
+        super.init(nibName: NibName.filesListVC.rawValue, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -47,6 +52,7 @@ class FileListViewController: NSViewController {
     }
     
     fileprivate func reloadData() {
+        selectedFiles = []
         var columns: [Column] = []
         if !dataStore.files.isEmpty {
             var nameRows: [CellType] = []
@@ -70,6 +76,7 @@ class FileListViewController: NSViewController {
         }
         self.columns = columns
         filesTableView.reloadData()
+        operationAvailability()
     }
     
     fileprivate func reloadFileList(with order: DataSource.FileOrder, ascending: Bool) {
@@ -87,7 +94,7 @@ class FileListViewController: NSViewController {
         
         panel.beginSheetModal(for: window) { [weak self] result in
             if result == NSApplication.ModalResponse.OK {
-                self?.dataStore = DataSource(urls: panel.urls)
+                self?.dataStore.update(with: panel.urls)
                 self?.reloadData()
             }
         }
@@ -149,7 +156,7 @@ class FileListViewController: NSViewController {
     }
     
     fileprivate func addHexStrings(_ hexArray: [String?]) {
-        dataStore.addMD5Hex(hexArray)
+        dataStore.addMD5Hex(hexArray, to: selectedFiles)
         add(newColumn: .md5([]))
         reloadData()
     }
@@ -159,6 +166,11 @@ class FileListViewController: NSViewController {
         if !stringErrors.isEmpty {
             self.presentAsSheet(self.factory.makeErrorListViewController(errors: stringErrors))
         }
+    }
+    
+    fileprivate func operationAvailability() {
+        removeBtn.isEnabled = !selectedFiles.isEmpty
+        md5Btn.isEnabled = !selectedFiles.isEmpty
     }
 }
 
@@ -170,7 +182,8 @@ extension FileListViewController: NSTableViewDelegate {
         let type = rowType(atColumn: columnIndex, row: row)
         let factory = TableViewCellHelper.factory(for: type)
 
-        let cell: BasicTableCell? = tableView.makeView(withIdentifier: columns[columnIndex].cellIdentifier, owner: nil) as? BasicTableCell
+        let cell = tableView.makeView(withIdentifier: columns[columnIndex].cellIdentifier,
+                                      owner: nil) as? BasicTableCell
         cell?.configureCell(vm: factory.vm)
         return cell
     }
@@ -182,6 +195,7 @@ extension FileListViewController: NSTableViewDelegate {
                 selectedFiles.append(file)
             }
         }
+        operationAvailability()
     }
     
     private func rows(inColumn column: Int) -> [CellType] {

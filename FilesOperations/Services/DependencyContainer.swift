@@ -25,7 +25,7 @@ protocol ViewControllerFactory {
 
 extension DependencyContainer: ViewControllerFactory {
     func makeFilesListViewController() -> FileListViewController {
-        return FileListViewController.makeFromStoryboard(with: self)
+        return FileListViewController(factory: self)
     }
     
     func makeErrorListViewController(errors: [String]) -> ErrorListViewController {

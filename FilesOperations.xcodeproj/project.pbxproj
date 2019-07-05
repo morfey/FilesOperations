@@ -10,6 +10,8 @@
 		EE62B1D722CE65E700BD11CD /* ErrorListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE62B1D522CE65E700BD11CD /* ErrorListViewController.swift */; };
 		EE62B1D822CE65E700BD11CD /* ErrorListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE62B1D622CE65E700BD11CD /* ErrorListViewController.xib */; };
 		EE62B1DA22CE99F400BD11CD /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE62B1D922CE99F400BD11CD /* Progress.swift */; };
+		EE62B1DC22CF4C2400BD11CD /* FileListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE62B1DB22CF4C2400BD11CD /* FileListViewController.xib */; };
+		EE62B1DE22CF4E8A00BD11CD /* NibNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE62B1DD22CF4E8A00BD11CD /* NibNames.swift */; };
 		EE7383B822C7E0CC00DF9B7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */; };
 		EE7383BA22C7E0CC00DF9B7F /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */; };
 		EE7383BC22C7E0CF00DF9B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE7383BB22C7E0CF00DF9B7F /* Assets.xcassets */; };
@@ -70,6 +72,8 @@
 		EE62B1D522CE65E700BD11CD /* ErrorListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorListViewController.swift; sourceTree = "<group>"; };
 		EE62B1D622CE65E700BD11CD /* ErrorListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorListViewController.xib; sourceTree = "<group>"; };
 		EE62B1D922CE99F400BD11CD /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
+		EE62B1DB22CF4C2400BD11CD /* FileListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FileListViewController.xib; sourceTree = "<group>"; };
+		EE62B1DD22CF4E8A00BD11CD /* NibNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibNames.swift; sourceTree = "<group>"; };
 		EE7383B422C7E0CC00DF9B7F /* FilesOperations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilesOperations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE7383B722C7E0CC00DF9B7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 				EE7383D622C7EDDA00DF9B7F /* Array + safe.swift */,
 				EE73841122CA7AC600DF9B7F /* GlobalVariables.swift */,
 				EE73842122CAA4DD00DF9B7F /* StoryboardName.swift */,
+				EE62B1DD22CF4E8A00BD11CD /* NibNames.swift */,
 				EE62B1D922CE99F400BD11CD /* Progress.swift */,
 			);
 			path = Helpers;
@@ -231,6 +236,7 @@
 				EE62B1D522CE65E700BD11CD /* ErrorListViewController.swift */,
 				EE62B1D622CE65E700BD11CD /* ErrorListViewController.xib */,
 				EE7383B922C7E0CC00DF9B7F /* FileListViewController.swift */,
+				EE62B1DB22CF4C2400BD11CD /* FileListViewController.xib */,
 				EE73841622CA8DB500DF9B7F /* FileListViewController + Column.swift */,
 			);
 			path = FileList;
@@ -358,6 +364,7 @@
 			files = (
 				EE7383BC22C7E0CF00DF9B7F /* Assets.xcassets in Resources */,
 				EE7383BF22C7E0CF00DF9B7F /* Main.storyboard in Resources */,
+				EE62B1DC22CF4C2400BD11CD /* FileListViewController.xib in Resources */,
 				EE62B1D822CE65E700BD11CD /* ErrorListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE62B1DE22CF4E8A00BD11CD /* NibNames.swift in Sources */,
 				EE73842422CAAD8D00DF9B7F /* DependencyContainer.swift in Sources */,
 				EE73841722CA8DB500DF9B7F /* FileListViewController + Column.swift in Sources */,
 				EE73841A22CA8F9600DF9B7F /* BaseTableCell.swift in Sources */,

@@ -15,7 +15,7 @@ class ErrorListViewController: NSViewController {
     
     init(errors: [String]) {
         self.errors = errors
-        super.init(nibName: "ErrorListViewController", bundle: nil)
+        super.init(nibName: NibName.errorsListVC.rawValue, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -34,7 +34,8 @@ class ErrorListViewController: NSViewController {
 
 extension ErrorListViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell: BasicTableCell? = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("cell"), owner: nil) as? BasicTableCell
+        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("cell"),
+                                                       owner: nil) as? BasicTableCell
         cell?.textField?.stringValue = errors[safe: row] ?? ""
         return cell
     }
