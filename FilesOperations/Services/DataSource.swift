@@ -17,7 +17,7 @@ public struct DataSource  {
         case name
         case date
         case size
-        case md5Hex
+        case md5Hash
     }
     
     init() {}
@@ -40,27 +40,26 @@ public struct DataSource  {
                                       icon: properties.effectiveIcon as? NSImage  ?? NSImage(),
                                       isDirectory: properties.isDirectory ?? false,
                                       url: $0,
-                                      md5Hex: nil))
-            }
-            catch {
+                                      md5Hash: nil))
+            } catch {
                 print("Error reading file attributes")
             }
         }
     }
     
-    mutating func remove(at index: Int) {
+    public mutating func remove(at index: Int) {
         files.remove(at: index)
     }
     
-    mutating func remove(_ file: FileMeta) {
+    public mutating func remove(_ file: FileMeta) {
         files.removeAll(where: { $0 == file })
     }
     
-    func index(of file: FileMeta) -> Int? {
+    public func index(of file: FileMeta) -> Int? {
         return files.firstIndex(of: file)
     }
     
-    mutating func addMD5Hex(_ array: [String?], to selectedFiles: [FileMeta]) {
+    public mutating func addMD5Hash(_ array: [String?], to selectedFiles: [FileMeta]) {
         selectedFiles.enumerated().forEach {
             if let index = files.firstIndex(of: $0.element), let string = array[$0.offset] {
                 files[index].addHex(string: string)
@@ -89,10 +88,10 @@ public struct DataSource  {
                                       rhs: $1.date,
                                       ascending: ascending)
             }
-        case .md5Hex:
+        case .md5Hash:
             sortedFiles = files.sorted {
-                return itemComparator(lhs: $0.md5Hex ?? "--",
-                                      rhs: $1.md5Hex ?? "--",
+                return itemComparator(lhs: $0.md5Hash ?? "--",
+                                      rhs: $1.md5Hash ?? "--",
                                       ascending: ascending)
             }
         }

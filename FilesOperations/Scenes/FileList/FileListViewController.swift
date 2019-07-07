@@ -9,7 +9,7 @@
 import Cocoa
 
 class FileListViewController: NSViewController {
-    @IBOutlet weak var operationPopButton: NSPopUpButton!
+    @IBOutlet private weak var operationPopButton: NSPopUpButton!
     @IBOutlet private weak var runBtn: NSButton!
     @IBOutlet private weak var filesTableView: NSTableView!
     @IBOutlet private weak var progressCircle: NSProgressIndicator!
@@ -40,17 +40,9 @@ class FileListViewController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        operationPopButton.removeAllItems()
-        operationPopButton.addItem(withTitle: "Remove")
-        operationPopButton.addItem(withTitle: "MD5")
-    }
-    
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
+    override func loadView() {
+        super.loadView()
+        configureOperationsControl()
     }
     
     fileprivate func reloadData() {
@@ -65,7 +57,7 @@ class FileListViewController: NSViewController {
                 let nameVM = BaseTableCellVM(text: $0.name, image: $0.icon)
                 let dateVM = BaseTableCellVM(text: dateFormatter.string(from: $0.date))
                 let sizeVM = BaseTableCellVM(text: $0.isDirectory ? "--" : sizeFormatter.string(fromByteCount: $0.size))
-                let hexVM = BaseTableCellVM(text: $0.md5Hex ?? "--")
+                let hexVM = BaseTableCellVM(text: $0.md5Hash ?? "--")
                 nameRows.append(.baseCell(nameVM))
                 dateRows.append(.baseCell(dateVM))
                 sizeRows.append(.baseCell(sizeVM))
@@ -97,6 +89,13 @@ class FileListViewController: NSViewController {
         progressCircle.isHidden = false
     }
     
+    fileprivate func configureOperationsControl() {
+        operationPopButton.removeAllItems()
+        FileService.Operation.allCases.forEach {
+            operationPopButton.addItem(withTitle: $0.rawValue)
+        }
+    }
+    
     fileprivate func add(newColumn: Column) {
         if filesTableView.tableColumn(withIdentifier: newColumn.identifier) == nil {
             let column = NSTableColumn(identifier: newColumn.identifier)
@@ -107,7 +106,7 @@ class FileListViewController: NSViewController {
     }
     
     fileprivate func addHexStrings(_ hexArray: [String?]) {
-        dataStore.addMD5Hex(hexArray, to: selectedFiles)
+        dataStore.addMD5Hash(hexArray, to: selectedFiles)
         add(newColumn: .md5([]))
         reloadData()
     }

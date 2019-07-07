@@ -53,7 +53,7 @@ extension FileListViewController {
             case .size:
                 return "size"
             case .md5:
-                return "md5Hex"
+                return "md5Hash"
             }
         }
         

@@ -10,7 +10,7 @@ import Foundation
 import FileService
 
 class FileService {
-    enum Operation: String, CaseIterable {
+    public enum Operation: String, CaseIterable {
         case remove = "Remove"
         case md5 = "MD5"
     }
