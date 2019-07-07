@@ -223,6 +223,11 @@ extension FileListViewController: NSTableViewDelegate {
     private func rowType(atColumn column: Int, row: Int) -> CellType? {
         return rows(inColumn: column)[safe: row]
     }
+    
+    @IBAction private func tableViewDoubleClick(sender: Any) {
+        guard let item = dataStore.files[safe: filesTableView.selectedRow] else { return }
+        workspace.open(item.url)
+    }
 }
 
 // MARK: - NSTableViewDataSource

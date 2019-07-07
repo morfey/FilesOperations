@@ -160,6 +160,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="tableViewDoubleClickWithSender:" target="-2" id="hGv-nw-Rzt"/>
                                     <outlet property="dataSource" destination="-2" id="lUX-1t-CLm"/>
                                     <outlet property="delegate" destination="-2" id="Qt9-sM-aJe"/>
                                 </connections>
@@ -212,14 +213,14 @@
                 </button>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cLs-B4-KTi">
                     <rect key="frame" x="523" y="220" width="105" height="25"/>
-                    <popUpButtonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" selectedItem="pcj-fL-kk4" id="kSp-aF-zbj">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" selectedItem="pcj-fL-kk4" id="kSp-aF-zbj">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="cf4-Ex-ktd">
                             <items>
-                                <menuItem title="Remove" state="on" id="2Mo-nl-HuH"/>
+                                <menuItem title="Remove" id="2Mo-nl-HuH"/>
                                 <menuItem title="MD5" id="heB-Hk-CVe"/>
-                                <menuItem id="pcj-fL-kk4"/>
+                                <menuItem state="on" id="pcj-fL-kk4"/>
                             </items>
                         </menu>
                     </popUpButtonCell>
