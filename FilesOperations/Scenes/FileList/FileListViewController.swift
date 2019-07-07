@@ -122,6 +122,33 @@ class FileListViewController: NSViewController {
         runBtn.isEnabled = !selectedFiles.isEmpty
     }
     
+    fileprivate func handleMD5Progress(_ item: FileMeta, progress: Progress) {
+        mainQueue { [weak self] in
+            switch progress {
+            case .some(let value):
+                self?.progressCircle.animateToDoubleValue(value: value)
+            case .done(let hashArray, let errors):
+                self?.addHashStrings(hashArray as? [String?] ?? [])
+                self?.progressCircle.isHidden = true
+                self?.presentErrorsIfNeeded(errors)
+            }
+        }
+    }
+    
+    fileprivate func handleRemoveProgress(_ item: FileMeta, progress: Progress) {
+        mainQueue { [weak self] in
+            self?.removeFromTableView(file: item)
+            self?.dataStore.remove(item)
+            switch progress {
+            case .some(let value):
+                self?.progressCircle.animateToDoubleValue(value: value)
+            case .done(_, let errors):
+                self?.progressCircle.isHidden = true
+                self?.presentErrorsIfNeeded(errors)
+            }
+        }
+    }
+    
     // MARK: - Actions
     @IBAction private func addFilesBtnTapped(_ sender: Any) {
         guard let window = view.window else { return }
@@ -148,33 +175,6 @@ class FileListViewController: NSViewController {
                 self?.handleMD5Progress(item, progress: progress)
             case .remove:
                 self?.handleRemoveProgress(item, progress: progress)
-            }
-        }
-    }
-    
-    fileprivate func handleMD5Progress(_ item: FileMeta, progress: Progress) {
-        mainQueue { [weak self] in
-            switch progress {
-            case .some(let value):
-                self?.progressCircle.animateToDoubleValue(value: value)
-            case .done(let hashArray, let errors):
-                self?.addHashStrings(hashArray as? [String?] ?? [])
-                self?.progressCircle.isHidden = true
-                self?.presentErrorsIfNeeded(errors)
-            }
-        }
-    }
-    
-    fileprivate func handleRemoveProgress(_ item: FileMeta, progress: Progress) {
-        mainQueue { [weak self] in
-            self?.removeFromTableView(file: item)
-            self?.dataStore.remove(item)
-            switch progress {
-            case .some(let value):
-                self?.progressCircle.animateToDoubleValue(value: value)
-            case .done(_, let errors):
-                self?.progressCircle.isHidden = true
-                self?.presentErrorsIfNeeded(errors)
             }
         }
     }

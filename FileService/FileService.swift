@@ -48,7 +48,6 @@ class FileService: NSObject, FileServiceProtocol {
             _ = CC_MD5_Final(&digest, &context)
             completion?(digest.map { String(format: "%02hhx", $0) }.joined(), nil)
         } catch {
-            print("Cannot open file:", error.localizedDescription)
             completion?(nil, error)
         }
     }

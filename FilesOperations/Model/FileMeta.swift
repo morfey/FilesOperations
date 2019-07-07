@@ -9,7 +9,7 @@
 import Foundation
 import AppKit
 
-public struct FileMeta: CustomDebugStringConvertible, Equatable {
+public struct FileMeta: Equatable {
     let name: String
     let date: Date
     let size: Int64
@@ -17,10 +17,6 @@ public struct FileMeta: CustomDebugStringConvertible, Equatable {
     let isDirectory: Bool
     let url: URL
     var md5Hash: String?
-    
-    public var debugDescription: String {
-        return name + " " + "Folder: \(isDirectory)" + " Size: \(size)"
-    }
     
     static public func == (lhs: FileMeta, rhs: FileMeta) -> Bool {
         return (lhs.url == rhs.url)

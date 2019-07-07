@@ -22,16 +22,12 @@ class ErrorListViewController: NSViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-    }
-    
     @IBAction func closeBtnTapped(_ sender: Any) {
         dismiss(sender)
     }
 }
 
+// MARK: - NSTableViewDelegate
 extension ErrorListViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("cell"),

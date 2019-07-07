@@ -37,7 +37,7 @@ public struct DataSource  {
                 files.append(FileMeta(name: properties.localizedName ?? "",
                                       date: properties.contentModificationDate ?? Date.distantPast,
                                       size: Int64(properties.fileSize ?? 0),
-                                      icon: properties.effectiveIcon as? NSImage  ?? NSImage(),
+                                      icon: properties.effectiveIcon as? NSImage ?? NSImage(),
                                       isDirectory: properties.isDirectory ?? false,
                                       url: $0,
                                       md5Hash: nil))
