@@ -62,7 +62,7 @@ public struct DataSource  {
     public mutating func addMD5Hash(_ array: [String?], to selectedFiles: [FileMeta]) {
         selectedFiles.enumerated().forEach {
             if let index = files.firstIndex(of: $0.element), let string = array[$0.offset] {
-                files[index].addHex(string: string)
+                files[index].addHash(string: string)
             }
         }
     } 

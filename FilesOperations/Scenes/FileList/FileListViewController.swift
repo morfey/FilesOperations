@@ -57,11 +57,11 @@ class FileListViewController: NSViewController {
                 let nameVM = BaseTableCellVM(text: $0.name, image: $0.icon)
                 let dateVM = BaseTableCellVM(text: dateFormatter.string(from: $0.date))
                 let sizeVM = BaseTableCellVM(text: $0.isDirectory ? "--" : sizeFormatter.string(fromByteCount: $0.size))
-                let hexVM = BaseTableCellVM(text: $0.md5Hash ?? "--")
+                let hashVM = BaseTableCellVM(text: $0.md5Hash ?? "--")
                 nameRows.append(.baseCell(nameVM))
                 dateRows.append(.baseCell(dateVM))
                 sizeRows.append(.baseCell(sizeVM))
-                md5Rows.append(.baseCell(hexVM))
+                md5Rows.append(.baseCell(hashVM))
             }
             columns.append(.name(nameRows))
             columns.append(.date(dateRows))
@@ -105,8 +105,8 @@ class FileListViewController: NSViewController {
         }
     }
     
-    fileprivate func addHexStrings(_ hexArray: [String?]) {
-        dataStore.addMD5Hash(hexArray, to: selectedFiles)
+    fileprivate func addHashStrings(_ hashArray: [String?]) {
+        dataStore.addMD5Hash(hashArray, to: selectedFiles)
         add(newColumn: .md5([]))
         reloadData()
     }
@@ -157,8 +157,8 @@ class FileListViewController: NSViewController {
             switch progress {
             case .some(let value):
                 self?.progressCircle.animateToDoubleValue(value: value)
-            case .done(let hexArray, let errors):
-                self?.addHexStrings(hexArray as? [String?] ?? [])
+            case .done(let hashArray, let errors):
+                self?.addHashStrings(hashArray as? [String?] ?? [])
                 self?.progressCircle.isHidden = true
                 self?.presentErrorsIfNeeded(errors)
             }

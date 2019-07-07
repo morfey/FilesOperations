@@ -26,7 +26,7 @@ public struct FileMeta: CustomDebugStringConvertible, Equatable {
         return (lhs.url == rhs.url)
     }
     
-    public mutating func addHex(string: String) {
+    public mutating func addHash(string: String) {
         self.md5Hash = string
     }
 }

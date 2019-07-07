@@ -9,7 +9,7 @@
 import Cocoa
 
 class ErrorListViewController: NSViewController {
-    @IBOutlet weak var errorListTableView: NSTableView!
+    @IBOutlet private weak var errorListTableView: NSTableView!
     
     private(set) var errors: [String]
     

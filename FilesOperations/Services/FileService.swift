@@ -43,15 +43,15 @@ class FileService {
         var progress: Progress = .some(0)
         let step = (Double(100) / Double(files.count))
         var errors = [Error?]()
-        var hexArray = [String?]()
+        var hashArray = [String?]()
         files.forEach { [weak self] item in
-            self?.remote?.md5File(url: item.url) { hex, error in
+            self?.remote?.md5File(url: item.url) { hash, error in
                 errors.append(error)
-                hexArray.append(hex)
+                hashArray.append(hash)
                 if item != files.last, case let .some(value) = progress {
                     progress = .some(value + step)
                 } else {
-                    progress = .done(hexArray, errors)
+                    progress = .done(hashArray, errors)
                 }
                 completion?(.md5, item, progress)
             }
