@@ -20,4 +20,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         controller?.contentViewController = listViewController
         controller?.window?.makeKeyAndOrderFront(nil)
     }
+    
+    @IBAction private func addFilesBtnTapped(_ sender: Any) {
+        let vc = (controller?.contentViewController as? FileListViewController)
+        vc?.addFilesBtnTapped(sender)
+    }
+    
+    @IBAction private func removeOperationBtnTapped(_ sender: Any) {
+        let vc = (controller?.contentViewController as? FileListViewController)
+        vc?.setOperation(.remove)
+        vc?.runBtnTapped(sender)
+    }
+    
+    @IBAction private func md5OperationBtnTapped(_ sender: Any) {
+        let vc = (controller?.contentViewController as? FileListViewController)
+        vc?.setOperation(.md5)
+        vc?.runBtnTapped(sender)
+    }
 }

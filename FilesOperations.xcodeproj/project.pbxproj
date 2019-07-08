@@ -36,6 +36,7 @@
 		EE73842422CAAD8D00DF9B7F /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73842322CAAD8D00DF9B7F /* DependencyContainer.swift */; };
 		EE73842622CB86F500DF9B7F /* ProgressBarAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73842522CB86F500DF9B7F /* ProgressBarAnimation.swift */; };
 		EE8CBECD22D3269D00ADB30C /* Array + subtract.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8CBECC22D3269D00ADB30C /* Array + subtract.swift */; };
+		EE8CBEFD22D339D200ADB30C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8CBEFC22D339D200ADB30C /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		EE73842322CAAD8D00DF9B7F /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		EE73842522CB86F500DF9B7F /* ProgressBarAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarAnimation.swift; sourceTree = "<group>"; };
 		EE8CBECC22D3269D00ADB30C /* Array + subtract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + subtract.swift"; sourceTree = "<group>"; };
+		EE8CBEFC22D339D200ADB30C /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 		EE73841822CA8F7F00DF9B7F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EE8CBEFC22D339D200ADB30C /* MainMenu.xib */,
 				EE73841922CA8F9600DF9B7F /* BaseTableCell.swift */,
 				EE73842522CB86F500DF9B7F /* ProgressBarAnimation.swift */,
 				EE73841B22CA8FCC00DF9B7F /* BaseTableCellVM.swift */,
@@ -366,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE7383BC22C7E0CF00DF9B7F /* Assets.xcassets in Resources */,
+				EE8CBEFD22D339D200ADB30C /* MainMenu.xib in Resources */,
 				EE7383BF22C7E0CF00DF9B7F /* Main.storyboard in Resources */,
 				EE62B1DC22CF4C2400BD11CD /* FileListViewController.xib in Resources */,
 				EE62B1D822CE65E700BD11CD /* ErrorListViewController.xib in Resources */,

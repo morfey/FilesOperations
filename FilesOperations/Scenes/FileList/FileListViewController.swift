@@ -120,6 +120,10 @@ class FileListViewController: NSViewController {
     
     fileprivate func operationBtnsAvailability() {
         runBtn.isEnabled = !selectedFiles.isEmpty
+        let operationsMenu = application.mainMenu?.item(withTag: 90)?.submenu
+        FileService.Operation.allCases.forEach {
+            operationsMenu?.item(withTitle: $0.rawValue)?.isEnabled = !selectedFiles.isEmpty
+        }
     }
     
     fileprivate func handleMD5Progress(progress: Progress) {
@@ -149,8 +153,12 @@ class FileListViewController: NSViewController {
         }
     }
     
+    func setOperation(_ operation: FileService.Operation) {
+        service.setSelected(operation: operation)
+    }
+    
     // MARK: - Actions
-    @IBAction private func addFilesBtnTapped(_ sender: Any) {
+    @IBAction func addFilesBtnTapped(_ sender: Any) {
         guard let window = view.window else { return }
         
         let panel = NSOpenPanel()
@@ -166,7 +174,7 @@ class FileListViewController: NSViewController {
         }
     }
     
-    @IBAction private func runBtnTapped(_ sender: Any) {
+    @IBAction func runBtnTapped(_ sender: Any) {
         resetProgressCircle()
         
         service.runSelectedOperation(for: selectedFiles) { [weak self] operation, item, progress in
