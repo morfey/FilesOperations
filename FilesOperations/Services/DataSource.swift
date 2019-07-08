@@ -98,6 +98,19 @@ public struct DataSource  {
         }
         files = sortedFiles
     }
+    
+    // MARK: - Mock
+    public mutating func makeTemporaryFiles() -> [URL] {
+        var urls = [URL]()
+        let directory = FileManager.default.temporaryDirectory
+        for i in ["1", "2", "3", "4"] {
+            let filename = directory.appendingPathComponent("output\(i).txt")
+            if let _ = try? i.write(to: filename, atomically: true, encoding: String.Encoding.utf8) {
+                urls.append(filename)
+            }
+        }
+        return urls
+    }
 }
 
 func itemComparator<T: Comparable>(lhs: T, rhs: T, ascending: Bool) -> Bool {
