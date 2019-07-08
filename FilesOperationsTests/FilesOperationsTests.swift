@@ -15,11 +15,11 @@ class FilesOperationsTests: XCTestCase {
     lazy var dataSource = container.makeDataSource()
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
     }
 
     override func tearDown() {
-        testRemove()
+        
     }
     
     func testTemporaryFilesCreate() {
@@ -27,7 +27,7 @@ class FilesOperationsTests: XCTestCase {
         XCTAssert(!dataSource.files.isEmpty)
     }
     
-    func testMD5Hash() {
+    func testMD5HashOperation() {
         dataSource.update(with: dataSource.makeTemporaryFiles())
         service.setSelected(operation: .md5)
         service.runSelectedOperation(for: dataSource.files) { [weak self] operation, item, progress in
@@ -40,7 +40,7 @@ class FilesOperationsTests: XCTestCase {
         }
     }
     
-    func testRemove() {
+    func testRemoveOperation() {
         dataSource.update(with: dataSource.makeTemporaryFiles())
         service.setSelected(operation: .remove)
         service.runSelectedOperation(for: dataSource.files) { operation, item, progress in
