@@ -23,14 +23,15 @@ public struct DataSource  {
     init() {}
     
     public mutating func update(with urls: [URL]) {
-        self.urls.append(contentsOf: urls)
+        let diff = urls.subtract(from: self.urls)
+        self.urls.append(contentsOf: diff)
         let requiredAttributes: [URLResourceKey] = [.localizedNameKey,
                                                     .effectiveIconKey,
                                                     .contentModificationDateKey,
                                                     .fileSizeKey,
                                                     .isDirectoryKey]
 
-        urls.forEach {
+        diff.forEach {
             do {
                 let properties = try $0.resourceValues(forKeys: Set(requiredAttributes))
                 

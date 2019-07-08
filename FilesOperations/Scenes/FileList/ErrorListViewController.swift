@@ -10,7 +10,6 @@ import Cocoa
 
 class ErrorListViewController: NSViewController {
     @IBOutlet private weak var errorListTableView: NSTableView!
-    
     private(set) var errors: [String]
     
     init(errors: [String]) {
@@ -20,10 +19,6 @@ class ErrorListViewController: NSViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @IBAction func closeBtnTapped(_ sender: Any) {
-        dismiss(sender)
     }
 }
 

@@ -122,7 +122,7 @@ class FileListViewController: NSViewController {
         runBtn.isEnabled = !selectedFiles.isEmpty
     }
     
-    fileprivate func handleMD5Progress(_ item: FileMeta, progress: Progress) {
+    fileprivate func handleMD5Progress(progress: Progress) {
         mainQueue { [weak self] in
             switch progress {
             case .some(let value):
@@ -172,7 +172,7 @@ class FileListViewController: NSViewController {
         service.runSelectedOperation(for: selectedFiles) { [weak self] operation, item, progress in
             switch operation {
             case .md5:
-                self?.handleMD5Progress(item, progress: progress)
+                self?.handleMD5Progress(progress: progress)
             case .remove:
                 self?.handleRemoveProgress(item, progress: progress)
             }
